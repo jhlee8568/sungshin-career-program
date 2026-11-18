@@ -91,6 +91,12 @@ svg .m{fill:var(--mut)}
 .cond{display:flex;align-items:center;gap:12px;font-size:15px;border:1.2px solid var(--line);padding:12px 16px}
 .cond b{flex:1;font-weight:500}
 .lk{font:inherit;font-size:14px;background:none;border:0;border-bottom:1px solid var(--ink);color:var(--ink);padding:0;cursor:pointer}
+.blks{display:flex;flex-direction:column;gap:36px}
+.blk{display:flex;flex-direction:column;gap:12px;border-top:3px solid var(--line)}
+.blk .row{cursor:default;border-bottom:0;padding:18px 8px 4px}
+.blk .row:hover{background:var(--bg)}
+.blk details{padding:0 8px}
+.blk .empty{padding:24px 16px}
 .rows{display:flex;flex-direction:column;border-top:1.5px solid var(--line)}
 .row{font:inherit;text-align:left;background:var(--bg);color:var(--ink);border:0;border-bottom:1.2px solid var(--line);display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:8px;padding:20px 8px;cursor:pointer}
 .row:hover{background:var(--g1)}
@@ -311,12 +317,12 @@ function depList(){
 function stepNo(){return typeof st.scr==='number'?st.scr:6;}
 function ready(n){return n===1?!!st.dep:n===2?!!st.job:n===3?!!st.grade:true;}
 function condText(){return st.dep+' · '+(st.job==='?'?'희망 직무 아직 모름':(st.sub||st.job))+' · '+st.grade+' · 관심 키워드 '+Object.keys(st.keys).length+'개 · 고민 '+Object.keys(st.worries).length+'개';}
+function calcBox(a){return '<details><summary>추천 점수 계산 보기 ('+a.score.toFixed(2)+')</summary><div class="calc">도움 점수 '+a.h.toFixed(2)+' (인원이 적으면 전체 평균 쪽으로 보정)<br>참여율 차이 '+(W_RATE*(a.r-a.rAll)>=0?'+':'')+(W_RATE*(a.r-a.rAll)).toFixed(2)+' (비슷한 선배 '+pct(a.r)+' − 전체 '+pct(a.rAll)+', × '+W_RATE+')<br>내 고민 반영 '+(a.worry.length?'+'+W_WORRY.toFixed(2)+' ('+esc(a.worry.join(', '))+')':'+0.00')+'<br>관심 키워드 '+(a.kwN?'+'+W_KEY.toFixed(2)+' (키워드에 맞는 프로그램 '+a.kwN+'개)':'+0.00')+'<br>학년 로드맵 '+(a.road?'+'+W_ROAD.toFixed(2):'+0.00')+'</div></details>';}
 function progRows(t){
   const P=programs(t,st);
   if(!P.list.length) return '<div class="empty"><span class="none">선샤인에 연결할 프로그램이 없어요.</span>'+(P.other?'<br>다른 학과·졸업생 전용 '+P.other+'개는 제외했어요.':'')+'</div>';
-  const show=st.open?P.list:P.list.slice(0,5);
+  const show=P.list;
   let h='<div class="pl">'+show.map((p,i)=>'<div class="p"><span class="pn">'+esc(p.n)+(i<P.mine&&p.d?' <span class="tag">내 학과</span>':'')+(p.k.length?' <span class="tag">키워드: '+esc(p.k.join(', '))+'</span>':'')+(p.area==='졸업생 특화프로그램'?' <span class="tag">졸업생 전용</span>':'')+'<span class="wh">선샤인 메뉴: '+esc(p.tab)+'</span></span><button type="button" data-a="favtoggle" data-v="'+p.i+'" aria-pressed="'+(!!st.fav[p.i])+'">'+(st.fav[p.i]?'관심 ✓':'관심')+'</button></div>').join('')+'</div>';
-  if(P.list.length>5) h+='<div><button type="button" class="lk" data-a="open">'+(st.open?'접기':'전체 '+P.list.length+'개 보기')+'</button></div>';
   if(P.other) h+='<div class="hint">다른 학과·졸업생 전용 프로그램 '+P.other+'개는 숨겼어요.</div>';
   return h;
 }
@@ -358,11 +364,11 @@ function render(){
     const R=recommend(st), list=st.all?R.list:R.list.slice(0,5);
     h='<h2 class="q">선배들은 이 활동이 도움 됐다고 했어요</h2>'+
       '<div class="cond"><b>'+esc(condText())+'</b><span class="hint">비슷한 선배: '+esc(R.grpName)+' '+R.grpN.toLocaleString()+'명'+(R.grpN<100?' <span class="none">(100명 미만)</span>':'')+'</span></div>'+
-      '<div class="rows">'+list.map((a,i)=>{const P=programs(a.t,st);return '<button type="button" class="row" data-a="detail" data-v="'+esc(a.t)+'"><span class="rk">'+(i+1)+'</span><span><span class="nm">'+esc(lab(a.t))+(a.road?'<span class="tag">'+st.grade+' 로드맵 권장</span>':'')+(a.worry.length?'<span class="tag">내 고민 관련</span>':'')+'</span><span class="wy">비슷한 선배 '+pct(a.rawRate)+'가 했어요 · 도움 점수 '+(a.rawHelp?a.rawHelp.toFixed(2):'-')+'점</span></span><span class="go">'+(P.list.length?'선샤인 프로그램 '+P.list.length+'개'+(P.kw?' · 관심 키워드 '+P.kw+'개':'')+' ›':'<span class="none">프로그램 없음</span> ›')+'</span></button>';}).join('')+'</div>';
+      '<div class="blks">'+list.map((a,i)=>{const P=programs(a.t,st);return '<section class="blk"><div class="row"><span class="rk">'+(i+1)+'</span><span><span class="nm">'+esc(lab(a.t))+(a.road?'<span class="tag">'+st.grade+' 로드맵 권장</span>':'')+(a.worry.length?'<span class="tag">내 고민 관련</span>':'')+'</span><span class="wy">비슷한 선배 '+pct(a.rawRate)+'가 했어요 · 도움 점수 '+(a.rawHelp?a.rawHelp.toFixed(2):'-')+'점</span></span><span class="go">'+(P.list.length?'선샤인 프로그램 '+P.list.length+'개'+(P.kw?' · 관심 키워드 '+P.kw+'개':''):'<span class="none">프로그램 없음</span>')+'</span></div>'+calcBox(a)+progRows(a.t)+'</section>';}).join('')+'</div>';
     if(R.list.length>5) h+='<div><button type="button" class="lk" data-a="all">'+(st.all?'5위까지만 보기':(R.list.length)+'위까지 모두 보기')+'</button></div>';
     if(EXTRA.length) h+='<div class="h3">선배 데이터에는 없지만 선샤인에 있는 활동</div><div class="rows">'+EXTRA.map(t=>{const P=programs(t,st);return '<button type="button" class="row" data-a="detail" data-v="'+esc(t)+'"><span class="rk">–</span><span><span class="nm">'+esc(t)+((ROAD[st.grade]||[]).includes(t)?'<span class="tag">'+st.grade+' 로드맵 권장</span>':'')+'</span><span class="wy">선배 설문에 없는 활동이라 순위를 매기지 않았어요</span></span><span class="go">선샤인 프로그램 '+P.list.length+'개 ›</span></button>';}).join('')+'</div>';
     if(R.skipped.length) h+='<div class="hint">순위에 넣지 못한 활동: '+R.skipped.map(x=>esc(lab(x.t))+' ('+esc(x.why)+')').join(', ')+'</div>';
-    nav='<button type="button" class="btn" data-a="go" data-v="5">이전</button><span class="hint">활동을 누르면 프로그램이 나와요</span><button type="button" class="btn" data-a="reset">처음부터 다시</button>';
+    nav='<button type="button" class="btn" data-a="go" data-v="5">이전</button><span class="hint">활동마다 선샤인 프로그램을 바로 아래에 보여 줘요</span><button type="button" class="btn" data-a="reset">처음부터 다시</button>';
   } else if(st.scr==='detail'){
     const R=recommend(st), idx=R.list.findIndex(a=>a.t===st.detail), a=R.list[idx], P=programs(st.detail,st);
     h='<div><button type="button" class="lk" data-a="go" data-v="rank">‹ 순위로 돌아가기</button></div><h2 class="q">'+(a?(idx+1)+'위  ':'')+esc(lab(st.detail))+'</h2>';
