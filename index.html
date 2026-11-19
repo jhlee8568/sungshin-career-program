@@ -121,6 +121,7 @@ details summary{cursor:pointer;color:var(--mut)}
 .p{display:flex;align-items:center;gap:14px;padding:16px 8px;border-bottom:1.2px solid var(--line)}
 .p .pn{flex:1;min-width:0;font-size:16px;font-weight:500}
 .p .wh{display:block;font-size:13px;font-weight:400;color:var(--mut);margin-top:2px}
+.p .lnk{font-size:14px;font-weight:600;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:8px 18px;cursor:pointer;flex:none;text-decoration:none;white-space:nowrap}
 .p button{font:inherit;font-size:14px;font-weight:600;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:8px 18px;cursor:pointer;flex:none}
 .p button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .none{color:var(--no);font-weight:600}
@@ -208,7 +209,7 @@ details summary{cursor:pointer;color:var(--mut)}
   <section id="pn-wireframe" role="tabpanel" hidden>
     <div class="wfscroll">
       <div class="wf">
-        <div class="wfbar"><strong>취업 준비 활동 추천</strong><div class="steps" id="steps"></div><button type="button" class="favbtn" data-a="fav" id="favbtn"></button></div>
+        <div class="wfbar"><strong>취업 준비 활동 추천</strong><div class="steps" id="steps"></div></div>
         <div class="scr" id="scr"></div>
         <div class="nav" id="nav"></div>
       </div>
@@ -322,14 +323,13 @@ function progRows(t){
   const P=programs(t,st);
   if(!P.list.length) return '<div class="empty"><span class="none">선샤인에 연결할 프로그램이 없어요.</span>'+(P.other?'<br>다른 학과·졸업생 전용 '+P.other+'개는 제외했어요.':'')+'</div>';
   const show=P.list;
-  let h='<div class="pl">'+show.map((p,i)=>'<div class="p"><span class="pn">'+esc(p.n)+(i<P.mine&&p.d?' <span class="tag">내 학과</span>':'')+(p.k.length?' <span class="tag">키워드: '+esc(p.k.join(', '))+'</span>':'')+(p.area==='졸업생 특화프로그램'?' <span class="tag">졸업생 전용</span>':'')+'<span class="wh">선샤인 메뉴: '+esc(p.tab)+'</span></span><button type="button" data-a="favtoggle" data-v="'+p.i+'" aria-pressed="'+(!!st.fav[p.i])+'">'+(st.fav[p.i]?'관심 ✓':'관심')+'</button></div>').join('')+'</div>';
+  let h='<div class="pl">'+show.map((p,i)=>'<div class="p"><span class="pn">'+esc(p.n)+(i<P.mine&&p.d?' <span class="tag">내 학과</span>':'')+(p.k.length?' <span class="tag">키워드: '+esc(p.k.join(', '))+'</span>':'')+(p.area==='졸업생 특화프로그램'?' <span class="tag">졸업생 전용</span>':'')+'<span class="wh">선샤인 메뉴: '+esc(p.tab)+'</span></span><a class="lnk" href="#" data-a="nolink" data-v="'+p.i+'" title="\uB9C1\uD06C \uC5F0\uACB0 \uC804">\uC120\uC0E4\uC778\uC5D0\uC11C \uBCF4\uAE30 \u2197</a></div>').join('')+'</div>';
   if(P.other) h+='<div class="hint">다른 학과·졸업생 전용 프로그램 '+P.other+'개는 숨겼어요.</div>';
   return h;
 }
 function render(){
   const s=stepNo();
   $('#steps').innerHTML=STEPS.map((n,i)=>'<span class="'+(i+1===s?'now':i+1<s?'done':'')+'">'+(i+1)+' '+n+'</span>').join('');
-  $('#favbtn').textContent='관심 프로그램 '+Object.keys(st.fav).length+'개';
   let h='', nav='';
   const navStd=(n)=>'<button type="button" class="btn" data-a="go" data-v="'+(n-1)+'"'+(n===1?' disabled':'')+'>이전</button><span class="hint">'+n+' / 5</span><button type="button" class="btn pri" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 보기':'다음')+'</button>';
   if(st.scr===1){
@@ -389,6 +389,7 @@ function render(){
 }
 $('#pn-wireframe').addEventListener('click',e=>{
   const b=e.target.closest('[data-a]'); if(!b||b.disabled) return;
+  if(b.dataset.a==='nolink'){ e.preventDefault(); return; }  /* 링크 연결 전 */
   const a=b.dataset.a, v=b.dataset.v;
   if(a==='ini'){st.ini=v==='전체'?'':v; st.q='';}
   else if(a==='dep') st.dep=v;
