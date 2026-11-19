@@ -121,6 +121,7 @@ details summary{cursor:pointer;color:var(--mut)}
 .p{display:flex;align-items:center;gap:14px;padding:16px 8px;border-bottom:1.2px solid var(--line)}
 .p .pn{flex:1;min-width:0;font-size:16px;font-weight:500}
 .p .wh{display:block;font-size:13px;font-weight:400;color:var(--mut);margin-top:2px}
+.morebtn{align-self:center;margin:4px 0}
 .p .lnk{font-size:14px;font-weight:600;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:8px 18px;cursor:pointer;flex:none;text-decoration:none;white-space:nowrap}
 .p button{font:inherit;font-size:14px;font-weight:600;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:8px 18px;cursor:pointer;flex:none}
 .p button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -303,7 +304,7 @@ addEventListener('hashchange',fromHash); fromHash();
 
 /* 와이어프레임 화면: 1 학과 → 2 희망 직무 → 3 학년 → 4 한 활동 → rank 순위 → detail 활동 상세, fav 관심 목록 */
 const STEPS=['학과','희망 직무','학년','관심 키워드','지금 고민','추천 결과'];
-const st={scr:1,back:'rank',q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},fav:{},detail:null,all:false,open:false};
+const st={scr:1,back:'rank',q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},fav:{},more:{},detail:null,all:false,open:false};
 const CHO='ㄱㄱㄴㄷㄷㄹㅁㅂㅂㅅㅅㅇㅈㅈㅊㅋㅌㅍㅎ', INI=['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ','A-Z'];
 function cho(s){return [...s].map(ch=>{const c=ch.charCodeAt(0);return c>=0xAC00&&c<=0xD7A3?CHO[Math.floor((c-0xAC00)/588)]:ch;}).join('');}
 const DEPS=D.dep.map(d=>{const c=cho(d[1]);return {col:d[0],name:d[1],cho:c.replace(/[^ㄱ-ㅎA-Za-z]/g,''),ini:/[ㄱ-ㅎ]/.test(c[0])?c[0]:'A-Z'};}).sort((a,b)=>a.name.localeCompare(b.name,'ko'));
@@ -322,8 +323,9 @@ function calcBox(a){return '<details><summary>추천 점수 계산 보기 ('+a.s
 function progRows(t){
   const P=programs(t,st);
   if(!P.list.length) return '<div class="empty"><span class="none">선샤인에 연결할 프로그램이 없어요.</span>'+(P.other?'<br>다른 학과·졸업생 전용 '+P.other+'개는 제외했어요.':'')+'</div>';
-  const show=P.list;
-  let h='<div class="pl">'+show.map((p,i)=>'<div class="p"><span class="pn">'+esc(p.n)+(i<P.mine&&p.d?' <span class="tag">내 학과</span>':'')+(p.k.length?' <span class="tag">키워드: '+esc(p.k.join(', '))+'</span>':'')+(p.area==='졸업생 특화프로그램'?' <span class="tag">졸업생 전용</span>':'')+'<span class="wh">선샤인 메뉴: '+esc(p.tab)+'</span></span><a class="lnk" href="#" data-a="nolink" data-v="'+p.i+'" title="\uB9C1\uD06C \uC5F0\uACB0 \uC804">\uC120\uC0E4\uC778\uC5D0\uC11C \uBCF4\uAE30 \u2197</a></div>').join('')+'</div>';
+  const more=!!st.more[t], show=more?P.list:P.list.slice(0,5);
+  let h='<div class="pl">'+show.map((p,i)=>'<div class="p"><span class="pn">'+esc(p.n)+(i<P.mine&&p.d?' <span class="tag">내 학과</span>':'')+(p.k.length?' <span class="tag">키워드: '+esc(p.k.join(', '))+'</span>':'')+(p.area==='졸업생 특화프로그램'?' <span class="tag">졸업생 전용</span>':'')+'<span class="wh">선샤인 메뉴: '+esc(p.tab)+'</span></span><a class="lnk" href="#" data-a="nolink" data-v="'+p.i+'" title="\uB9C1\uD06C \uC5F0\uACB0 \uC804">\uC790\uC138\uD788 \uBCF4\uAE30</a></div>').join('')+'</div>';
+  if(P.list.length>5) h+='<button type="button" class="btn morebtn" data-a="more" data-v="'+esc(t)+'">'+(more?'\uC811\uAE30':'\uB354\uBCF4\uAE30 ('+(P.list.length-5)+'\uAC1C)')+'</button>';
   if(P.other) h+='<div class="hint">다른 학과·졸업생 전용 프로그램 '+P.other+'개는 숨겼어요.</div>';
   return h;
 }
@@ -401,10 +403,11 @@ $('#pn-wireframe').addEventListener('click',e=>{
   else if(a==='go'){st.scr=/^\d+$/.test(v)?+v:v; st.open=false; scrollTop();}
   else if(a==='detail'){st.detail=v; st.scr='detail'; st.open=false; scrollTop();}
   else if(a==='all') st.all=!st.all;
+  else if(a==='more'){ if(st.more[v]) delete st.more[v]; else st.more[v]=1; }
   else if(a==='open') st.open=!st.open;
   else if(a==='favtoggle'){ if(st.fav[v]) delete st.fav[v]; else st.fav[v]=1; }
   else if(a==='fav'){ if(st.scr!=='fav'){st.back=st.scr; st.scr='fav';} }
-  else if(a==='reset'){Object.assign(st,{scr:1,q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},detail:null,all:false,open:false});}
+  else if(a==='reset'){Object.assign(st,{scr:1,q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},detail:null,all:false,open:false,more:{}});}
   render();
   if(a==='job'){const e2=$('#subsec'); if(e2&&e2.scrollIntoView) try{e2.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(_){}}
 });
