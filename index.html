@@ -154,7 +154,8 @@ details summary{cursor:pointer;color:var(--mut)}
 .bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
 
 /* 구조도 (참고용, 오른쪽 위 버튼) */
-.refbtn{font-size:13.5px;font-weight:600;border-radius:999px;padding:9px 18px}
+.refs{display:flex;gap:8px}
+.refbtn{text-decoration:none;color:var(--ink);font-size:13.5px;font-weight:600;border-radius:999px;padding:9px 18px}
 .sheetwrap{position:fixed;inset:0;z-index:30;overflow:auto;background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .sheet{max-width:1040px;margin:0 auto;border-radius:30px;padding:22px;background:var(--bg);display:flex;flex-direction:column;gap:14px}
 .sheet .hd{display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -195,7 +196,7 @@ svg .m{fill:var(--mut)}
 
 <div class="bgfx" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
 <div class="app" id="pn-wireframe">
-  <header class="top"><div class="brand">Sunshine</div><button type="button" class="refbtn" id="refbtn">구조도</button></header>
+  <header class="top"><div class="brand">Sunshine</div><div class="refs"><button type="button" class="refbtn" id="refbtn">구조도</button><a class="refbtn" href="wireframe.html#wireframe">와이어프레임</a></div></header>
   <aside class="side">
     <h1 class="ttl" id="ttl"></h1>
     <p class="desc" id="desc"></p>
