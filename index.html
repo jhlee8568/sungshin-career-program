@@ -335,7 +335,7 @@ function render(){
   let h='', nav='';
   const navStd=(n)=>'<button type="button" class="btn" data-a="go" data-v="'+(n-1)+'"'+(n===1?' disabled':'')+'>이전</button><span class="hint">'+n+' / 5</span><button type="button" class="btn pri" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 보기':'다음')+'</button>';
   if(st.scr===1){
-    h='<h2 class="q">어느 학과에 다니나요?</h2><p class="sub">학과 이름으로 검색하거나 가나다순 목록에서 골라요.</p>'+
+    h='<h2 class="q">어느 학과에 다니나요?</h2>'+
       '<input class="find" id="depq" type="search" placeholder="학과 이름 검색 (예: 경영, ㅅㅂㅅ)" aria-label="학과 이름 검색" value="'+esc(st.q)+'" autocomplete="off">'+
       '<div id="deplist">'+depList()+'</div>';
     nav=navStd(1);
@@ -394,7 +394,7 @@ $('#pn-wireframe').addEventListener('click',e=>{
   if(b.dataset.a==='nolink'){ e.preventDefault(); return; }  /* 링크 연결 전 */
   const a=b.dataset.a, v=b.dataset.v;
   if(a==='ini'){st.ini=v==='전체'?'':v; st.q='';}
-  else if(a==='dep') st.dep=v;
+  else if(a==='dep'){st.dep=v; st.scr=2; scrollTop();}  /* 학과를 고르면 바로 다음 단계로 */
   else if(a==='job'){st.job=v; st.sub='';}
   else if(a==='sub') st.sub=v;
   else if(a==='grade') st.grade=v;
