@@ -182,13 +182,6 @@ svg .tno{fill:var(--no)}
 svg .m{fill:var(--mut)}
 .h{font-size:12px;font-weight:700;letter-spacing:.04em}
 
-/* 온보딩 그래픽: 선 없이 그라디언트 면으로만 그린 시험지 + 태그 */
-.hero{position:relative;min-height:max(440px,calc(100vh - 200px));display:flex;align-items:center;justify-content:center}
-.hero .fig{position:relative;width:min(340px,70%)}
-.hero svg{display:block;width:100%;height:auto;overflow:visible}
-.hero .gtag{position:absolute;left:88%;top:16%;white-space:nowrap;font-size:14px;font-weight:600;border-radius:999px;padding:9px 16px;color:var(--ink);
-  background:var(--glass2);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi),0 12px 30px -12px var(--gsh)}
-@media (max-width:900px){.hero{min-height:360px}.hero .fig{width:min(240px,60%)}.hero .gtag{left:auto;right:-18%;top:4%;font-size:13px}}
 @media (max-width:900px){
   .app{grid-template-columns:minmax(0,1fr);grid-template-rows:none;align-content:start;min-height:0;gap:20px;padding-block:16px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   .side{position:static;gap:12px}
@@ -406,33 +399,6 @@ function orbs(){
   return '<div class="orbs" aria-label="4년제 선배가 취업 준비로 한 활동">'+o('자격증 준비','자격증 준비','a')+o('직장체험(인턴 포함)','인턴·직장체험','b')+o('영어 등 외국어 공부','외국어 공부','c')+o('(모의)면접 준비','면접 준비','d')+o('취업 관련 서류 작성 교육','자소서·이력서 교육','e')+'</div>'+
     '<div class="hint">4년제 졸업 선배가 취업 준비로 한 활동과 참여율이에요 (대졸자직업이동경로조사 2016~2019).</div>';
 }
-
-/* 시험지 그래픽: 선 없이 그라디언트 면만 사용 */
-const EXAM='<svg viewBox="0 0 320 410" role="img" aria-label="시험지 그림"><defs>'+
- '<radialGradient id="ex-p" cx="42%" cy="38%" r="75%"><stop offset="0" stop-color="#fff3d9"/><stop offset=".55" stop-color="#f8d39b"/><stop offset="1" stop-color="#d98a3a"/></radialGradient>'+
- '<radialGradient id="ex-b" cx="50%" cy="40%" r="80%"><stop offset="0" stop-color="#f2b46a"/><stop offset="1" stop-color="#a9561e"/></radialGradient>'+
- '<linearGradient id="ex-h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8642a"/><stop offset="1" stop-color="#e7a35a"/></linearGradient>'+
- '<linearGradient id="ex-l" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cf8a4a" stop-opacity=".75"/><stop offset="1" stop-color="#cf8a4a" stop-opacity=".12"/></linearGradient>'+
- '<radialGradient id="ex-o" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#e9a55c"/><stop offset="1" stop-color="#8f4416"/></radialGradient>'+
- '<radialGradient id="ex-e" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#fff8ea"/><stop offset="1" stop-color="#eec08a"/></radialGradient>'+
- '<linearGradient id="ex-pc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd66b"/><stop offset=".6" stop-color="#f3a93b"/><stop offset="1" stop-color="#b8641e"/></linearGradient>'+
- '<linearGradient id="ex-pt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6dcb4"/><stop offset="1" stop-color="#c58a52"/></linearGradient>'+
- '<filter id="ex-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>'+
- '<filter id="ex-sh" filterUnits="userSpaceOnUse" x="0" y="300" width="320" height="110"><feGaussianBlur stdDeviation="10"/></filter>'+
- '<clipPath id="ex-c"><rect x="46" y="40" width="220" height="290" rx="22"/></clipPath></defs>'+
- '<ellipse cx="160" cy="356" rx="118" ry="14" fill="#c98a4a" opacity=".28" filter="url(#ex-sh)"/>'+
- '<g transform="rotate(7 170 190)"><rect x="66" y="48" width="220" height="290" rx="22" fill="url(#ex-b)"/></g>'+
- '<g transform="rotate(-4 156 185)">'+
-  '<rect x="46" y="40" width="220" height="290" rx="22" fill="url(#ex-p)"/>'+
-  '<g clip-path="url(#ex-c)"><ellipse cx="60" cy="330" rx="90" ry="70" fill="#b9682c" opacity=".35" filter="url(#ex-soft)"/><ellipse cx="270" cy="40" rx="70" ry="50" fill="#fff8ec" opacity=".6" filter="url(#ex-soft)"/></g>'+
-  '<rect x="74" y="70" width="110" height="18" rx="9" fill="url(#ex-h)"/>'+
-  '<rect x="196" y="70" width="42" height="18" rx="9" fill="#e7a35a" opacity=".55"/>'+
-  [0,1,2,3].map(i=>{const y=122+i*50;return '<circle cx="86" cy="'+y+'" r="11" fill="'+(i===2?'url(#ex-e)':'url(#ex-o)')+'"/>'+
-    '<rect x="108" y="'+(y-9)+'" width="'+[128,104,120,92][i]+'" height="8" rx="4" fill="url(#ex-l)"/>'+
-    '<rect x="108" y="'+(y+4)+'" width="'+[84,66,78,58][i]+'" height="6" rx="3" fill="url(#ex-l)" opacity=".7"/>';}).join('')+
- '</g>'+
- '<g transform="rotate(38 250 250)"><rect x="234" y="150" width="30" height="150" rx="10" fill="url(#ex-pc)"/><rect x="234" y="150" width="30" height="20" rx="8" fill="#e9b7a3"/><path d="M234 296h30l-15 34z" fill="url(#ex-pt)"/><path d="M244 318h10l-5 12z" fill="#7a3d14"/></g>'+
- '</svg>';
 function stepVal(i){return [st.dep,st.grade,st.job==='?'?'아직 모름':(st.sub||st.job),Object.keys(st.worries).length?Object.keys(st.worries).length+'개 선택':'',Object.keys(st.forms).length?Object.keys(st.forms).length+'개 선택':'',''][i]||'';}
 function stepNo(){return typeof st.scr==='number'?st.scr:6;}
 function ready(n){return n===1?!!st.dep:n===2?!!st.grade:n===3?!!st.job:true;}
@@ -457,7 +423,7 @@ function render(){
   if(st.scr===0){
     T='진로 선택에 도움 되는 학교 프로그램 추천';
     S='같은 학과에서 같은 직무로 취업한 선배들이 실제로 한 활동을 바탕으로, 성신여대 학생에게 지금 해야 할 취업 준비 활동과 관련된 학교 프로그램을 추천해드릴게요.';
-    h='<div class="hero"><div class="fig">'+EXAM+'<span class="gtag">모의 인적성 시험</span></div></div>';
+    h='';  /* 온보딩 그래픽은 나중에 */
     cta='<button type="button" class="btn pri" data-a="go" data-v="1">시작하기</button>';
   } else if(st.scr===1){
     T='어느 학과에 다니나요?'; S='학과가 같은 선배를 찾는 데 써요. 목록에서 고르거나 이름으로 검색해요.'; h=
