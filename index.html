@@ -38,10 +38,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 
 /* 배경 원 */
 .bgfx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.bgfx i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
-.bgfx .o1{width:820px;height:820px;right:-220px;top:-260px;background:var(--sun1)}
-.bgfx .o2{width:720px;height:720px;right:14%;bottom:-360px;background:var(--sun3);opacity:.42}
-.bgfx .o3{width:680px;height:680px;left:-280px;bottom:-120px;background:var(--sun4);opacity:.5}
+.bgfx{background:radial-gradient(1100px 760px at 100% 0%,color-mix(in srgb,var(--sun1) 22%,transparent),transparent 70%)}
+.bgfx i{display:none}
 
 /* 틀: 왼쪽 서비스명·제목·설명, 오른쪽 선택지와 결과 */
 .app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);grid-template-rows:auto 1fr;gap:44px 56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:28px 140px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
@@ -413,7 +411,7 @@ function render(){
   if(st.scr===0){
     T='진로 선택에 도움 되는 학교 프로그램 추천';
     S='같은 학과에서 같은 직무로 취업한 선배들이 실제로 한 활동을 바탕으로, 성신여대 학생에게 지금 해야 할 취업 준비 활동과 관련된 학교 프로그램을 추천해드릴게요.';
-    h=orbs();
+    h='';  /* 온보딩 그래픽은 나중에 */
     nav='<button type="button" class="btn pri" data-a="go" data-v="1">시작하기</button>';
   } else if(st.scr===1){
     T='어느 학과에 다니나요?'; S='학과가 같은 선배를 찾는 데 써요. 목록에서 고르거나 이름으로 검색해요.'; h=
