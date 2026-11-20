@@ -7,23 +7,154 @@
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>취업 준비 활동 추천 구조도</title>
+<title>Sunshine</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
-/* 흑백 기본. 색은 와이어프레임의 "프로그램 없음" 경고에만 쓴다. 모서리는 모두 직각. */
-:root{--bg:#fff;--ink:#111;--mut:#5c5c5c;--line:#111;--hair:#c9c9c9;--g1:#efefef;--g2:#dedede;--no:#c62828}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--ink:#ededed;--mut:#a3a3a3;--line:#ededed;--hair:#4a4a4a;--g1:#222;--g2:#333;--no:#ff8a80;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#121212;--ink:#ededed;--mut:#a3a3a3;--line:#ededed;--hair:#4a4a4a;--g1:#222;--g2:#333;--no:#ff8a80;color-scheme:dark}
+/* Sunshine: 밝은 바탕 + 햇빛색 원 + 글래스(반투명·블러·밝은 테두리) 버튼. 색은 토큰으로만 쓴다. */
+:root{--bg:#f5f4f0;--ink:#16181d;--mut:#6c7079;--line:#16181d;--hair:rgba(22,24,29,.12);--g1:#ecebe6;--g2:#dddcd6;--no:#c8452f;
+--glass:rgba(255,255,255,.52);--glass2:rgba(255,255,255,.72);--gbrd:rgba(255,255,255,.75);--ghi:rgba(255,255,255,.95);--gsh:rgba(60,45,20,.12);
+--sun1:#ffd166;--sun2:#ffb36b;--sun3:#ff8f70;--sun4:#f3dcc4;--on:#16181d;--onink:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121317;--ink:#f1f1ee;--mut:#a0a4ac;--line:#f1f1ee;--hair:rgba(255,255,255,.14);--g1:#1c1d22;--g2:#2a2b31;--no:#ff9c8a;
+--glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--gbrd:rgba(255,255,255,.18);--ghi:rgba(255,255,255,.28);--gsh:rgba(0,0,0,.4);
+--sun1:#c99a2e;--sun2:#c9783a;--sun3:#c25a44;--sun4:#5b4a3c;--on:#f1f1ee;--onink:#16181d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121317;--ink:#f1f1ee;--mut:#a0a4ac;--line:#f1f1ee;--hair:rgba(255,255,255,.14);--g1:#1c1d22;--g2:#2a2b31;--no:#ff9c8a;
+--glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--gbrd:rgba(255,255,255,.18);--ghi:rgba(255,255,255,.28);--gsh:rgba(0,0,0,.4);
+--sun1:#c99a2e;--sun2:#c9783a;--sun3:#c25a44;--sun4:#5b4a3c;--on:#f1f1ee;--onink:#16181d;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:14px;line-height:1.55}
-.wrap{max-width:1240px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
-.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
-h1{font-size:20px;font-weight:700;margin:0}
-.tabs{display:flex;gap:0}
-.tabs button{font:inherit;font-weight:600;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);padding:8px 18px;cursor:pointer;margin-left:-1.5px}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
-button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* 글래스 공통 */
+.glass,.btn,.tile,.chip,.sel,.pop,.blk,.cond,.subp,.find,.refbtn,.p .lnk,.sheet{
+  background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi),0 10px 30px -12px var(--gsh)}
+.btn,.tile,.chip,.sel,.refbtn,.p .lnk{cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover:not(:disabled),.tile:hover,.chip:hover,.sel:hover,.refbtn:hover,.p .lnk:hover{background:var(--glass2)}
+.btn:active:not(:disabled),.tile:active,.chip:active,.sel:active{transform:scale(.98)}
+@media (prefers-reduced-motion:reduce){.btn,.tile,.chip,.sel,.refbtn,.p .lnk{transition:none}}
+
+/* 배경 원 */
+.bgfx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+.bgfx .o1{width:520px;height:520px;right:-120px;top:-140px;background:var(--sun1)}
+.bgfx .o2{width:420px;height:420px;right:22%;bottom:-180px;background:var(--sun3);opacity:.35}
+.bgfx .o3{width:360px;height:360px;left:-140px;bottom:8%;background:var(--sun4);opacity:.7}
+
+/* 틀: 왼쪽 서비스명·제목·설명, 오른쪽 선택지와 결과 */
+.app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);gap:56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:44px 72px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+.side{position:sticky;top:44px;align-self:start;display:flex;flex-direction:column;gap:26px;min-width:0}
+.brand{font-family:"Outfit",-apple-system,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.brand::before{content:"";width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--sun1),var(--sun3))}
+.ttl{font-size:clamp(40px,5vw,68px);font-weight:700;line-height:1.08;letter-spacing:-.035em;margin:28px 0 0;text-wrap:balance}
+.desc{font-size:16px;color:var(--mut);margin:0;max-width:30em}
+.steps{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.steps .st{display:grid;grid-template-columns:30px auto 1fr;gap:8px;align-items:baseline;background:none;border:0;padding:6px 0;text-align:left;color:var(--mut);font-size:14px}
+.steps button.st{cursor:pointer}
+.steps .st .no{font-family:"Outfit",sans-serif;font-size:12px;font-variant-numeric:tabular-nums}
+.steps .st .sv{color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+.steps .st.done{color:var(--ink)}
+.steps .st.now{color:var(--ink);font-weight:700}
+.steps .st.now .no::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sun3);margin-left:5px;vertical-align:middle}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.nav .hint{font-variant-numeric:tabular-nums}
+.btn{font-size:16px;font-weight:600;border-radius:999px;padding:13px 30px}
+.btn.pri{background:var(--on);color:var(--onink);border-color:transparent;box-shadow:0 10px 26px -10px var(--gsh)}
+.btn.pri:hover:not(:disabled){background:var(--on);opacity:.88}
+.btn:disabled{opacity:.35;cursor:default}
+.hint{font-size:13.5px;color:var(--mut)}
+
+.scr{display:flex;flex-direction:column;gap:26px;min-width:0;padding-top:86px}
+.q{font-size:30px;font-weight:700;line-height:1.25;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.sub{font-size:16px;color:var(--mut);margin:-14px 0 0}
+
+/* 학과 선택 */
+.combo{position:relative;max-width:520px;z-index:5}
+.sel{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:19px;font-weight:600;border-radius:999px;padding:18px 26px;text-align:left}
+.sel .ph{color:var(--mut);font-weight:500}
+.sel .cv{width:10px;height:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translate(-2px,-2px);flex:none;transition:transform .15s ease}
+.sel[aria-expanded="true"] .cv{transform:rotate(225deg) translate(-2px,-2px)}
+.pop{position:absolute;left:0;right:0;top:calc(100% + 10px);border-radius:28px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--glass2);-webkit-backdrop-filter:blur(34px) saturate(190%);backdrop-filter:blur(34px) saturate(190%);box-shadow:inset 0 1px 0 var(--ghi),0 24px 60px -18px var(--gsh)}
+.find{font:inherit;font-size:16px;width:100%;color:var(--ink);border-radius:999px;padding:12px 18px;box-shadow:inset 0 1px 0 var(--ghi)}
+.find::placeholder{color:var(--mut)}
+.find:focus-visible{outline:none;border-color:var(--sun2);box-shadow:inset 0 1px 0 var(--ghi),0 0 0 3px color-mix(in srgb,var(--sun2) 45%,transparent)}
+#deplist{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;padding:2px}
+.gl{font-size:12px;font-weight:600;color:var(--mut);margin:10px 12px 4px}
+.opt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;background:none;border:0;border-radius:14px;padding:10px 12px;text-align:left;font-size:16px;cursor:pointer}
+.opt small{font-size:12.5px;color:var(--mut);white-space:nowrap}
+.opt:hover,.opt:focus-visible{background:var(--hair)}
+.opt[aria-pressed="true"]{background:var(--on);color:var(--onink)}
+.opt[aria-pressed="true"] small{color:var(--onink);opacity:.7}
+
+/* 선배 활동 원 (학과 화면 그림) */
+.orbs{position:relative;height:440px;margin-top:10px}
+.orb{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;gap:2px;border:1px solid var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi),0 18px 40px -18px var(--gsh)}
+.orb b{font-size:15px;font-weight:600;line-height:1.25}
+.orb span{font-family:"Outfit",-apple-system,sans-serif;font-size:30px;font-weight:600;line-height:1.1}
+.orb small{font-size:11.5px;opacity:.75}
+.orb.a{width:210px;height:210px;left:2%;top:10px;background:var(--sun1);color:#16181d}
+.orb.b{width:170px;height:170px;left:36%;top:120px;background:var(--on);color:var(--onink)}
+.orb.c{width:190px;height:190px;left:60%;top:0;background:var(--sun4);color:#16181d}
+.orb.d{width:150px;height:150px;left:8%;top:250px;background:var(--sun3);color:#16181d}
+.orb.e{width:160px;height:160px;left:66%;top:230px;background:var(--glass2);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
+:root[data-theme="dark"] .orb.c,:root[data-theme="dark"] .orb.a,:root[data-theme="dark"] .orb.d{color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .orb.a,:root:not([data-theme="light"]) .orb.c,:root:not([data-theme="light"]) .orb.d{color:#fff}}
+
+/* 선택지 */
+.grid{display:grid;gap:12px}
+.c4{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.c3{grid-template-columns:repeat(3,1fr)}.c5{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.tile{font-size:15.5px;font-weight:500;text-align:left;border-radius:22px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile small{font-size:12.5px;font-weight:400;color:var(--mut)}
+.tile[aria-pressed="true"],.chip[aria-pressed="true"]{background:var(--on);color:var(--onink);border-color:transparent}
+.tile[aria-pressed="true"] small{color:var(--onink);opacity:.72}
+.tile.big{font-size:22px;font-weight:700;padding:40px 14px;align-items:center;text-align:center;border-radius:30px}
+.tile.dim{border-style:dashed;border-color:var(--hair)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font-size:16px;font-weight:500;border-radius:999px;padding:13px 22px}
+.grid.dense{grid-auto-flow:row dense}
+.subp{grid-column:1/-1;border-radius:26px;padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--glass2)}
+.subp .gl{margin:0 4px}
+.subp .tile{padding:12px 14px;font-size:14.5px;border-radius:18px}
+
+/* 추천 결과 */
+.cond{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:14.5px;border-radius:22px;padding:14px 20px}
+.cond b{flex:1;font-weight:600;min-width:200px}
+.lk{font-size:14px;background:none;border:0;border-bottom:1px solid var(--ink);padding:0;cursor:pointer}
+.blks{display:flex;flex-direction:column;gap:20px}
+.blk{display:flex;flex-direction:column;gap:12px;border-radius:30px;padding:22px 24px}
+.rows{display:flex;flex-direction:column}
+.row{text-align:left;background:none;border:0;display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:10px;padding:0}
+.row .rk{font-family:"Outfit",-apple-system,sans-serif;font-size:40px;font-weight:600;line-height:1}
+.row .nm{font-size:19px;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:8px;letter-spacing:-.01em}
+.row .wy{font-size:14px;color:var(--mut);margin-top:3px;display:block}
+.row .go{font-size:13.5px;white-space:nowrap;color:var(--mut)}
+.tag{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 9px;background:var(--sun1);color:#16181d}
+details{font-size:13.5px}
+details summary{cursor:pointer;color:var(--mut)}
+.calc{margin-top:8px;font-variant-numeric:tabular-nums;border-left:2px solid var(--hair);padding-left:12px;line-height:1.8}
+.h3{font-size:19px;font-weight:700;margin:8px 0 -10px}
+.pl{display:flex;flex-direction:column;border-top:1px solid var(--hair)}
+.p{display:flex;align-items:center;gap:14px;padding:14px 2px;border-bottom:1px solid var(--hair)}
+.p .pn{flex:1;min-width:0;font-size:15.5px;font-weight:500}
+.p .wh{display:block;font-size:12.5px;font-weight:400;color:var(--mut);margin-top:3px}
+.p .lnk{font-size:13.5px;font-weight:600;border-radius:999px;padding:8px 16px;flex:none;text-decoration:none;white-space:nowrap;color:var(--ink)}
+.morebtn{align-self:center;margin:2px 0;font-size:14px;padding:10px 22px}
+.none{color:var(--no);font-weight:600}
+.empty{border:1px dashed var(--hair);border-radius:20px;padding:28px 16px;text-align:center;color:var(--mut);font-size:15px}
+.stat2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{border:1px solid var(--hair);border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.stat .n{font-size:46px;font-weight:700;line-height:1.05}
+.bar{height:8px;border-radius:8px;background:var(--g2);position:relative;margin-top:6px}
+.bar i{position:absolute;inset:0 auto 0 0;border-radius:8px;background:var(--ink)}
+.bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+
+/* 구조도 (참고용, 오른쪽 위 버튼) */
+.refbtn{position:fixed;z-index:20;top:calc(18px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px));font-size:13.5px;font-weight:600;border-radius:999px;padding:9px 18px}
+.sheetwrap{position:fixed;inset:0;z-index:30;overflow:auto;background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.sheet{max-width:1040px;margin:0 auto;border-radius:30px;padding:22px;background:var(--bg);display:flex;flex-direction:column;gap:14px}
+.sheet .hd{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet .hd b{font-size:17px}
 figure{margin:0}
 .figbox{overflow-x:auto}
 .figbox svg{display:block;width:100%;min-width:760px;max-width:980px;height:auto;margin:0 auto}
@@ -44,101 +175,35 @@ svg .tno{fill:var(--no)}
 svg .m{fill:var(--mut)}
 .h{font-size:12px;font-weight:700;letter-spacing:.04em}
 
-/* 와이어프레임: PC 화면 1160px 기준. 한 화면에 질문 하나. */
-.wfscroll{overflow-x:auto}
-.wf{min-width:1160px;min-height:780px;border:1.5px solid var(--line);display:flex;flex-direction:column}
-.wfbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:14px 24px;border-bottom:1.5px solid var(--line)}
-.wfbar strong{font-size:16px}
-.steps{display:flex;gap:0;font-size:13px}
-.steps span{padding:5px 16px;border:1.2px solid var(--line);margin-left:-1.2px;color:var(--mut)}
-.steps span.done{background:var(--g2);color:var(--ink)}
-.steps span.now{background:var(--ink);color:var(--bg);font-weight:700}
-.favbtn{justify-self:end;font:inherit;font-size:13px;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:5px 14px;cursor:pointer}
-.scr{flex:1;padding:56px 72px 40px;display:flex;flex-direction:column;gap:28px;min-width:0}
-.q{font-size:32px;font-weight:700;line-height:1.3;margin:0}
-.sub{font-size:16px;color:var(--mut);margin:-16px 0 0}
-.grid{display:grid;gap:12px}
-.c4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:repeat(3,1fr)}.c5{grid-template-columns:repeat(5,1fr)}
-.tile{font:inherit;font-size:16px;font-weight:500;text-align:left;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);padding:18px 18px;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
-.tile small{font-size:12.5px;font-weight:400;color:var(--mut)}
-.tile[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.tile[aria-pressed="true"] small{color:var(--bg);opacity:.75}
-.tile.big{font-size:24px;font-weight:700;padding:44px 18px;align-items:center;text-align:center}
-.tile.dim{border-style:dashed}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{font:inherit;font-size:17px;font-weight:500;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);padding:14px 20px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);font-weight:700}
-.grid.dense{grid-auto-flow:row dense}
-.subp{grid-column:1/-1;border:1.5px solid var(--line);border-left-width:6px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;background:var(--g1)}
-.subp .gl{margin:0}
-.subp .tile{padding:12px 14px;font-size:15px}
-.find{font:inherit;font-size:20px;width:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);padding:16px 18px;border-radius:0;outline-offset:2px}
-.idx{display:flex;flex-wrap:wrap;gap:0}
-.idx button{font:inherit;font-size:16px;font-weight:500;min-width:52px;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);margin-left:-1.2px;padding:9px 12px;cursor:pointer}
-.idx button:first-child{margin-left:0}
-.idx button[aria-pressed="true"]{background:var(--ink);color:var(--bg);font-weight:700}
-.idx button:disabled{color:var(--mut);opacity:.4;cursor:default}
-#deplist{display:flex;flex-direction:column;gap:22px}
-.gl{font-size:14px;font-weight:700;margin:8px 0 -14px}
-.stars{display:flex;gap:2px;margin-top:6px}
-.stars span{font-size:22px;line-height:1;opacity:.3;cursor:pointer;padding:0 1px}
-.stars span.on{opacity:1}
-.nav{display:flex;justify-content:space-between;align-items:center;padding:14px 72px;border-bottom:1.5px solid var(--line)}
-.btn{font:inherit;font-size:17px;font-weight:700;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);padding:14px 44px;cursor:pointer}
-.btn.pri{background:var(--ink);color:var(--bg)}
-.btn:disabled{opacity:.3;cursor:default}
-.hint{font-size:14px;color:var(--mut)}
-.cond{display:flex;align-items:center;gap:12px;font-size:15px;border:1.2px solid var(--line);padding:12px 16px}
-.cond b{flex:1;font-weight:500}
-.lk{font:inherit;font-size:14px;background:none;border:0;border-bottom:1px solid var(--ink);color:var(--ink);padding:0;cursor:pointer}
-.blks{display:flex;flex-direction:column;gap:36px}
-.blk{display:flex;flex-direction:column;gap:12px;border-top:3px solid var(--line)}
-.blk .row{cursor:default;border-bottom:0;padding:18px 8px 4px}
-.blk .row:hover{background:var(--bg)}
-.blk details{padding:0 8px}
-.blk .empty{padding:24px 16px}
-.rows{display:flex;flex-direction:column;border-top:1.5px solid var(--line)}
-.row{font:inherit;text-align:left;background:var(--bg);color:var(--ink);border:0;border-bottom:1.2px solid var(--line);display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:8px;padding:20px 8px;cursor:pointer}
-.row:hover{background:var(--g1)}
-.row .rk{font-size:40px;font-weight:700;line-height:1}
-.row .nm{font-size:21px;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.row .wy{font-size:14.5px;color:var(--mut);margin-top:2px}
-.row .go{font-size:15px;white-space:nowrap}
-.tag{font-size:12px;font-weight:500;border:1px solid var(--line);padding:1px 7px}
-.stat2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.stat{border:1.5px solid var(--line);padding:22px 24px;display:flex;flex-direction:column;gap:6px}
-.stat .n{font-size:52px;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
-.stat .l{font-size:15px}
-.stat .d{font-size:13.5px;color:var(--mut)}
-.bar{height:10px;background:var(--g2);position:relative;margin-top:6px}
-.bar i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
-.bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
-details{font-size:14px}
-details summary{cursor:pointer;color:var(--mut)}
-.calc{margin-top:6px;font-variant-numeric:tabular-nums;border-left:2px solid var(--line);padding-left:10px;line-height:1.8}
-.h3{font-size:20px;font-weight:700;margin:8px 0 -12px}
-.pl{display:flex;flex-direction:column;border-top:1.5px solid var(--line)}
-.p{display:flex;align-items:center;gap:14px;padding:16px 8px;border-bottom:1.2px solid var(--line)}
-.p .pn{flex:1;min-width:0;font-size:16px;font-weight:500}
-.p .wh{display:block;font-size:13px;font-weight:400;color:var(--mut);margin-top:2px}
-.morebtn{align-self:center;margin:4px 0}
-.p .lnk{font-size:14px;font-weight:600;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:8px 18px;cursor:pointer;flex:none;text-decoration:none;white-space:nowrap}
-.p button{font:inherit;font-size:14px;font-weight:600;background:var(--bg);color:var(--ink);border:1.2px solid var(--line);padding:8px 18px;cursor:pointer;flex:none}
-.p button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.none{color:var(--no);font-weight:600}
-.empty{border:1.5px dashed var(--line);padding:48px 16px;text-align:center;color:var(--mut);font-size:16px}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;gap:28px;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .side{position:static;gap:18px}
+  .ttl{margin-top:14px}
+  .scr{padding-top:0}
+  .orbs{height:330px;transform-origin:left top}
+  .orb.a{width:150px;height:150px}.orb.b{width:124px;height:124px;top:96px;left:38%}.orb.c{width:132px;height:132px;left:62%}.orb.d{width:112px;height:112px;top:190px}.orb.e{width:118px;height:118px;top:180px;left:62%}
+  .orb span{font-size:22px}.orb b{font-size:12.5px}
+  .row{grid-template-columns:40px 1fr}.row .go{grid-column:2}
+  .p{flex-wrap:wrap}
+  .stat2{grid-template-columns:1fr}
+}
 </style>
 
-<div class="wrap">
-  <div class="top">
-    <h1>취업 준비 활동 추천</h1>
-    <div class="tabs" role="tablist">
-      <button role="tab" id="tb-structure" data-tab="structure" aria-selected="true">구조도</button>
-      <button role="tab" id="tb-wireframe" data-tab="wireframe" aria-selected="false">와이어프레임</button>
-    </div>
-  </div>
-
-  <section id="pn-structure" role="tabpanel">
+<div class="bgfx" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
+<button type="button" class="refbtn" id="refbtn">구조도</button>
+<div class="app" id="pn-wireframe">
+  <aside class="side">
+    <div class="brand">Sunshine</div>
+    <h1 class="ttl">나와 닮은 선배</h1>
+    <p class="desc">같은 학과에서 같은 일을 하게 된 선배들이 실제로 한 활동을 바탕으로, 지금 할 활동과 학교 프로그램을 추천해요.</p>
+    <div class="steps" id="steps"></div>
+    <div class="nav" id="nav"></div>
+  </aside>
+  <main class="scr" id="scr"></main>
+</div>
+<div class="sheetwrap" id="pn-structure" hidden>
+  <div class="sheet">
+    <div class="hd"><b>구조도 (참고용)</b><button type="button" class="btn" id="refclose">닫기</button></div>
     <figure>
       <div class="figbox">
       <svg viewBox="0 0 920 770" role="img" aria-label="학과와 희망 직무로 GOMS에서 비슷한 선배를 찾고, 지금 고민을 반영해 활동 순위를 계산한 뒤, 학년, 학과, 진행 선호 방식에 맞는 선샤인 프로그램을 붙여 결과 화면으로 보여 준다">
@@ -205,17 +270,7 @@ details summary{cursor:pointer;color:var(--mut)}
       </div>
       <figcaption><b>그림 1.</b> 취업 준비 활동 추천의 구조. 입력 5개 중 학과·희망 직무는 비슷한 선배 찾기에, 지금 고민은 활동 순위에, 학년·진행 선호 방식은 프로그램 선택에 사용. 진행 선호 방식은 선샤인 목록의 프로그램 형태 값. 고민 태그는 예상 값(분석 결과로 교체 예정). 결과 화면의 숫자는 GOMS 2016~2019 값, 프로그램명은 선샤인 목록의 이름.</figcaption>
     </figure>
-  </section>
-
-  <section id="pn-wireframe" role="tabpanel" hidden>
-    <div class="wfscroll">
-      <div class="wf">
-        <div class="wfbar"><strong>취업 준비 활동 추천</strong><div class="steps" id="steps"></div></div>
-        <div class="nav" id="nav"></div>
-        <div class="scr" id="scr"></div>
-      </div>
-    </div>
-  </section>
+  </div>
 </div>
 
 <script>
@@ -299,11 +354,11 @@ const pct=x=>Math.round(x*100)+'%';
   });
 })();
 
-/* 탭 */
-function show(tab){['structure','wireframe'].forEach(t=>{$('#pn-'+t).hidden=t!==tab;$('#tb-'+t).setAttribute('aria-selected',t===tab);});}
-document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{show(b.dataset.tab);try{location.hash=b.dataset.tab;}catch(e){}}));
-function fromHash(){show(location.hash==='#wireframe'?'wireframe':'structure');}
-addEventListener('hashchange',fromHash); fromHash();
+/* 구조도: 오른쪽 위 버튼으로 열고 닫는 참고 화면 */
+function showRef(on){$('#pn-structure').hidden=!on;}
+$('#refbtn').addEventListener('click',()=>showRef(true));
+$('#refclose').addEventListener('click',()=>showRef(false));
+addEventListener('keydown',e=>{ if(e.key!=='Escape') return; showRef(false); if(st.depopen){st.depopen=false; render();} });
 
 /* 와이어프레임 화면: 1 학과 → 2 희망 직무 → 3 학년 → 4 한 활동 → rank 순위 → detail 활동 상세, fav 관심 목록 */
 const STEPS=['학과','학년','희망 직무','지금 고민','선호 방식','추천 결과'];
@@ -313,12 +368,20 @@ function cho(s){return [...s].map(ch=>{const c=ch.charCodeAt(0);return c>=0xAC00
 const DEPS=D.dep.map(d=>{const c=cho(d[1]);return {col:d[0],name:d[1],cho:c.replace(/[^ㄱ-ㅎA-Za-z]/g,''),ini:/[ㄱ-ㅎ]/.test(c[0])?c[0]:'A-Z'};}).sort((a,b)=>a.name.localeCompare(b.name,'ko'));
 function depList(){
   const q=st.q.replace(/\s/g,''), onlyCho=q&&/^[ㄱ-ㅎ]+$/.test(q);
-  const hit=DEPS.filter(d=>q?(onlyCho?d.cho.includes(q.replace(/[ㄲㄸㅃㅆㅉ]/g,m=>({'ㄲ':'ㄱ','ㄸ':'ㄷ','ㅃ':'ㅂ','ㅆ':'ㅅ','ㅉ':'ㅈ'}[m]))):d.name.replace(/\s/g,'').toLowerCase().includes(q.toLowerCase())):(!st.ini||d.ini===st.ini));
-  if(!hit.length) return '<div class="hint">"'+esc(st.q)+'"에 맞는 학과가 없어요. 다른 이름으로 검색해 보세요.</div>';
-  const tile=d=>'<button type="button" class="tile" data-a="dep" data-v="'+esc(d.name)+'" aria-pressed="'+(st.dep===d.name)+'">'+esc(d.name)+'<small>'+esc(d.col)+'</small></button>';
-  if(q) return '<div class="grid c4">'+hit.map(tile).join('')+'</div>';
-  return INI.filter(c=>hit.some(d=>d.ini===c)).map(c=>'<div><div class="gl" style="margin:0 0 10px">'+c+'</div><div class="grid c4">'+hit.filter(d=>d.ini===c).map(tile).join('')+'</div></div>').join('');
+  const hit=DEPS.filter(d=>!q||(onlyCho?d.cho.includes(q.replace(/[ㄲㄸㅃㅆㅉ]/g,m=>({'ㄲ':'ㄱ','ㄸ':'ㄷ','ㅃ':'ㅂ','ㅆ':'ㅅ','ㅉ':'ㅈ'}[m]))):d.name.replace(/\s/g,'').toLowerCase().includes(q.toLowerCase())));
+  if(!hit.length) return '<div class="hint" style="padding:10px 12px">"'+esc(st.q)+'"에 맞는 학과가 없어요.</div>';
+  const opt=(d,col)=>'<button type="button" class="opt" role="option" data-a="dep" data-v="'+esc(d.name)+'" aria-pressed="'+(st.dep===d.name)+'">'+esc(d.name)+(col?'<small>'+esc(d.col)+'</small>':'')+'</button>';
+  if(q) return hit.map(d=>opt(d,true)).join('');
+  const cols=[]; D.dep.forEach(d=>{if(!cols.includes(d[0])) cols.push(d[0]);});
+  return cols.map(c=>'<div class="gl">'+esc(c)+'</div>'+hit.filter(d=>d.col===c).map(d=>opt(d,false)).join('')).join('');
 }
+/* 학과 화면 그림: 4년제 선배 전체가 한 활동과 참여율 (GOMS 2016~2019) */
+function orbs(){
+  const A=D.stat.A, o=(k,name,c)=>'<div class="orb '+c+'"><b>'+name+'</b><span>'+pct(A[k][1]/A[k][0])+'</span><small>선배가 했어요</small></div>';
+  return '<div class="orbs" aria-label="4년제 선배가 취업 준비로 한 활동">'+o('자격증 준비','자격증 준비','a')+o('직장체험(인턴 포함)','인턴·직장체험','b')+o('영어 등 외국어 공부','외국어 공부','c')+o('(모의)면접 준비','면접 준비','d')+o('취업 관련 서류 작성 교육','자소서·이력서 교육','e')+'</div>'+
+    '<div class="hint">4년제 졸업 선배 전체 기준이에요 (대졸자직업이동경로조사 2016~2019).</div>';
+}
+function stepVal(i){return [st.dep,st.grade,st.job==='?'?'아직 모름':(st.sub||st.job),Object.keys(st.worries).length?Object.keys(st.worries).length+'개 선택':'',Object.keys(st.forms).length?Object.keys(st.forms).length+'개 선택':'',''][i]||'';}
 function stepNo(){return typeof st.scr==='number'?st.scr:6;}
 function ready(n){return n===1?!!st.dep:n===2?!!st.grade:n===3?!!st.job:true;}
 function condText(){return st.dep+' · '+(st.job==='?'?'희망 직무 아직 모름':(st.sub||st.job))+' · '+st.grade+' · 고민 '+Object.keys(st.worries).length+'개 · 선호 방식 '+Object.keys(st.forms).length+'개';}
@@ -334,13 +397,14 @@ function progRows(t){
 }
 function render(){
   const s=stepNo();
-  $('#steps').innerHTML=STEPS.map((n,i)=>'<span class="'+(i+1===s?'now':i+1<s?'done':'')+'">'+(i+1)+' '+n+'</span>').join('');
+  $('#steps').innerHTML=STEPS.map((n,i)=>{const done=i+1<s, in_='<span class="no">0'+(i+1)+'</span><span class="sn">'+n+'</span><span class="sv">'+esc(done?stepVal(i):'')+'</span>';
+    return done?'<button type="button" class="st done" data-a="go" data-v="'+(i+1)+'">'+in_+'</button>':'<div class="st'+(i+1===s?' now':'')+'">'+in_+'</div>';}).join('');
   let h='', nav='';
   const navStd=(n)=>'<button type="button" class="btn" data-a="go" data-v="'+(n-1)+'"'+(n===1?' disabled':'')+'>이전</button><span class="hint">'+n+' / 5</span><button type="button" class="btn pri" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 보기':'다음')+'</button>';
   if(st.scr===1){
     h='<h2 class="q">어느 학과에 다니나요?</h2>'+
-      '<input class="find" id="depq" type="search" placeholder="학과 이름 검색 (예: 경영, ㅅㅂㅅ)" aria-label="학과 이름 검색" value="'+esc(st.q)+'" autocomplete="off">'+
-      '<div id="deplist">'+depList()+'</div>';
+      '<div class="combo"><button type="button" class="sel" data-a="depopen" aria-haspopup="listbox" aria-expanded="'+(!!st.depopen)+'">'+(st.dep?'<span>'+esc(st.dep)+'</span>':'<span class="ph">학과 선택</span>')+'<i class="cv"></i></button>'+
+      (st.depopen?'<div class="pop"><input class="find" id="depq" type="search" placeholder="학과 이름 검색 (예: 경영, ㅅㅂㅅ)" aria-label="학과 이름 검색" value="'+esc(st.q)+'" autocomplete="off"><div id="deplist" role="listbox">'+depList()+'</div></div>':'')+'</div>'+orbs();
     nav=navStd(1);
   } else if(st.scr===3){
     const J=D.jobs.find(j=>j[0]===st.job);
@@ -373,7 +437,7 @@ function render(){
     if(R.list.length>5) h+='<div><button type="button" class="lk" data-a="all">'+(st.all?'5위까지만 보기':(R.list.length)+'위까지 모두 보기')+'</button></div>';
     if(EXTRA.length) h+='<div class="h3">선배 데이터에는 없지만 선샤인에 있는 활동</div><div class="rows">'+EXTRA.map(t=>{const P=programs(t,st);return '<button type="button" class="row" data-a="detail" data-v="'+esc(t)+'"><span class="rk">–</span><span><span class="nm">'+esc(t)+((ROAD[st.grade]||[]).includes(t)?'<span class="tag">'+st.grade+' 로드맵 권장</span>':'')+'</span><span class="wy">선배 설문에 없는 활동이라 순위를 매기지 않았어요</span></span><span class="go">선샤인 프로그램 '+P.list.length+'개 ›</span></button>';}).join('')+'</div>';
     if(R.skipped.length) h+='<div class="hint">순위에 넣지 못한 활동: '+R.skipped.map(x=>esc(lab(x.t))+' ('+esc(x.why)+')').join(', ')+'</div>';
-    nav='<button type="button" class="btn" data-a="go" data-v="5">이전</button><span class="hint">활동마다 선샤인 프로그램을 바로 아래에 보여 줘요</span><button type="button" class="btn" data-a="reset">처음부터 다시</button>';
+    nav='<button type="button" class="btn" data-a="go" data-v="5">이전</button><button type="button" class="btn" data-a="reset">처음부터 다시</button>';
   } else if(st.scr==='detail'){
     const R=recommend(st), idx=R.list.findIndex(a=>a.t===st.detail), a=R.list[idx], P=programs(st.detail,st);
     h='<div><button type="button" class="lk" data-a="go" data-v="rank">‹ 순위로 돌아가기</button></div><h2 class="q">'+(a?(idx+1)+'위  ':'')+esc(lab(st.detail))+'</h2>';
@@ -391,13 +455,17 @@ function render(){
     nav='<button type="button" class="btn" data-a="go" data-v="'+st.back+'">돌아가기</button><span></span><span></span>';
   }
   $('#scr').innerHTML=h; $('#nav').innerHTML=nav;
+  if(st.depopen){const i=$('#depq'); if(i&&i.focus) try{i.focus();}catch(e){}}
 }
 $('#pn-wireframe').addEventListener('click',e=>{
-  const b=e.target.closest('[data-a]'); if(!b||b.disabled) return;
+  const b=e.target.closest('[data-a]');
+  if(!b){ if(st.depopen&&!e.target.closest('.combo')){st.depopen=false; render();} return; }
+  if(b.disabled) return;
   if(b.dataset.a==='nolink'){ e.preventDefault(); return; }  /* 링크 연결 전 */
   const a=b.dataset.a, v=b.dataset.v;
   if(a==='ini'){st.ini=v==='전체'?'':v; st.q='';}
-  else if(a==='dep'){st.dep=v; st.scr=2; scrollTop();}  /* 학과를 고르면 바로 다음 단계로 */
+  else if(a==='depopen'){st.depopen=!st.depopen; st.q='';}
+  else if(a==='dep'){st.dep=v; st.depopen=false; st.q=''; st.scr=2; scrollTop();}  /* 학과를 고르면 바로 다음 단계로 */
   else if(a==='job'){st.job=v; st.sub='';}
   else if(a==='sub') st.sub=v;
   else if(a==='grade') st.grade=v;
@@ -415,8 +483,8 @@ $('#pn-wireframe').addEventListener('click',e=>{
   render();
   if(a==='job'){const e2=$('#subsec'); if(e2&&e2.scrollIntoView) try{e2.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(_){}}
 });
-$('#pn-wireframe').addEventListener('input',e=>{ if(e.target.id!=='depq') return; st.q=e.target.value; if(st.q) st.ini=''; $('#deplist').innerHTML=depList(); });
-function scrollTop(){try{$('.wf').scrollIntoView({block:'start'});}catch(e){}}
+$('#pn-wireframe').addEventListener('input',e=>{ if(e.target.id!=='depq') return; st.q=e.target.value; $('#deplist').innerHTML=depList(); });
+function scrollTop(){try{window.scrollTo(0,0);}catch(e){}}
 render();
 </script>
 
