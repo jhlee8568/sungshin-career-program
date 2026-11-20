@@ -42,7 +42,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .bgfx i{display:none}
 
 /* 틀: 왼쪽 서비스명·제목·설명, 오른쪽 선택지와 결과 */
-.app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);grid-template-rows:auto 1fr;gap:44px 56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:28px 140px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+.app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);grid-template-rows:auto 1fr;align-content:start;gap:44px 56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:28px 140px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
 .top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px}
 .brand{font-family:"Outfit",-apple-system,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1}
 .side{position:sticky;top:36px;align-self:start;display:flex;flex-direction:column;gap:22px;min-width:0}
@@ -60,7 +60,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .steps .st.now{background:var(--on);color:var(--onink);border-color:transparent;font-weight:600}
 /* 이전·다음·시작하기: 오른쪽 아래 고정 */
 .nav{position:fixed;z-index:15;bottom:calc(24px + env(safe-area-inset-bottom,0px));right:max(28px,calc((100vw - 1280px)/2 + 28px));display:flex;align-items:center;gap:10px;padding:8px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi),0 18px 44px -16px var(--gsh)}
-.nav:empty{display:none}
+.nav:empty,.cta:empty{display:none}
+.cta{margin-top:10px}
+.cta .btn{padding:15px 36px;font-size:17px}
 .nav:has(> .btn:only-child){background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none;padding:0}
 .nav:has(> .btn:only-child) .btn{box-shadow:0 14px 32px -12px var(--gsh)}
 .nav .btn{box-shadow:none}
@@ -181,8 +183,17 @@ svg .m{fill:var(--mut)}
 .h{font-size:12px;font-weight:700;letter-spacing:.04em}
 
 @media (max-width:900px){
-  .app{grid-template-columns:1fr;grid-template-rows:auto;gap:24px;padding-block:20px 130px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-  .side{position:static;gap:14px}
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:none;align-content:start;min-height:0;gap:20px;padding-block:16px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .side{position:static;gap:12px}
+  .top{min-height:0}
+  .refbtn{padding:8px 14px;font-size:13px}
+  .brand{font-size:21px}
+  .ttl{font-size:30px}
+  .desc{font-size:15px}
+  .cta .btn{width:100%}
+  .steps{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 0;padding-right:16px}
+  .steps .st{flex:none}
+  .combo{max-width:none}
   .nav{right:max(16px,env(safe-area-inset-right,0px))}
   .nav .btn{padding:12px 22px}
   .orbs{height:330px;transform-origin:left top}
@@ -200,6 +211,7 @@ svg .m{fill:var(--mut)}
   <aside class="side">
     <h1 class="ttl" id="ttl"></h1>
     <p class="desc" id="desc"></p>
+    <div class="cta" id="cta"></div>
   </aside>
   <main class="main">
     <div class="steps" id="steps" hidden></div>
@@ -405,14 +417,14 @@ function render(){
   const s=stepNo();
   $('#steps').innerHTML=STEPS.map((n,i)=>{const done=i+1<s, in_='<span class="no">0'+(i+1)+'</span><span class="sn">'+n+'</span><span class="sv">'+esc(done?stepVal(i):'')+'</span>';
     return done?'<button type="button" class="st done" data-a="go" data-v="'+(i+1)+'">'+in_+'</button>':'<div class="st'+(i+1===s?' now':'')+'">'+in_+'</div>';}).join('');
-  let h='', nav='', T='', S='';  /* T, S: 왼쪽 제목과 설명 */
+  let h='', nav='', cta='', T='', S='';  /* T, S: 왼쪽 제목과 설명 */
   $('#steps').hidden=st.scr===0;
   const navStd=(n)=>'<button type="button" class="btn" data-a="go" data-v="'+(n-1)+'">이전</button><span class="hint">'+n+' / 5</span><button type="button" class="btn pri" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 보기':'다음')+'</button>';
   if(st.scr===0){
     T='진로 선택에 도움 되는 학교 프로그램 추천';
     S='같은 학과에서 같은 직무로 취업한 선배들이 실제로 한 활동을 바탕으로, 성신여대 학생에게 지금 해야 할 취업 준비 활동과 관련된 학교 프로그램을 추천해드릴게요.';
     h='';  /* 온보딩 그래픽은 나중에 */
-    nav='<button type="button" class="btn pri" data-a="go" data-v="1">시작하기</button>';
+    cta='<button type="button" class="btn pri" data-a="go" data-v="1">시작하기</button>';
   } else if(st.scr===1){
     T='어느 학과에 다니나요?'; S='학과가 같은 선배를 찾는 데 써요. 목록에서 고르거나 이름으로 검색해요.'; h=
       '<div class="combo"><button type="button" class="sel" data-a="depopen" aria-haspopup="listbox" aria-expanded="'+(!!st.depopen)+'">'+(st.dep?'<span>'+esc(st.dep)+'</span>':'<span class="ph">학과 선택</span>')+'<i class="cv"></i></button>'+
@@ -466,7 +478,7 @@ function render(){
     T='관심 프로그램 '+ids.length+'개'; S=''; h=(ids.length?'<div class="pl">'+ids.map(id=>{const p=D.prog.find(x=>x.i==id);return '<div class="p"><span class="pn">'+esc(p.n)+'<span class="wh">'+esc(lab(p.t))+' · 선샤인 메뉴: '+esc(p.tab)+'</span></span><button type="button" data-a="favtoggle" data-v="'+p.i+'" aria-pressed="true">관심 ✓</button></div>';}).join('')+'</div>':'<div class="empty">프로그램에서 "관심"을 누르면 여기에 모여요.</div>');
     nav='<button type="button" class="btn" data-a="go" data-v="'+st.back+'">돌아가기</button><span></span><span></span>';
   }
-  $('#scr').innerHTML=h; $('#nav').innerHTML=nav; $('#ttl').textContent=T; $('#desc').innerHTML=S;
+  $('#scr').innerHTML=h; $('#nav').innerHTML=nav; $('#ttl').textContent=T; $('#desc').innerHTML=S; $('#cta').innerHTML=cta;
   if(st.scr===1&&st.depopen){const i=$('#depq'); if(i&&i.focus) try{i.focus();}catch(e){}}
 }
 $('#pn-wireframe').addEventListener('click',e=>{
