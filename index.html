@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffe45c'/%3E%3Cstop offset='1' stop-color='%23ff9fb0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='28' fill='url(%23g)'/%3E%3C/svg%3E">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -14,7 +15,7 @@
 /* Sunshine: 밝은 바탕 + 햇빛색 원 + 글래스(반투명·블러·밝은 테두리) 버튼. 색은 토큰으로만 쓴다. */
 :root{--bg:#f5f4f0;--ink:#16181d;--mut:#6c7079;--line:#16181d;--hair:rgba(22,24,29,.12);--g1:#ecebe6;--g2:#dddcd6;--no:#c8452f;
 --glass:rgba(255,255,255,.52);--glass2:rgba(255,255,255,.72);--gbrd:rgba(255,255,255,.75);--ghi:rgba(255,255,255,.95);--gsh:rgba(60,45,20,.12);
---sun1:#ffd166;--sun2:#ffb36b;--sun3:#ff8f70;--sun4:#f3dcc4;--on:#16181d;--onink:#fff}
+--sun1:#ffe45c;--sun2:#ffb561;--sun3:#ff9fb0;--sun4:#b9f0c4;--on:#16181d;--onink:#fff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121317;--ink:#f1f1ee;--mut:#a0a4ac;--line:#f1f1ee;--hair:rgba(255,255,255,.14);--g1:#1c1d22;--g2:#2a2b31;--no:#ff9c8a;
 --glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--gbrd:rgba(255,255,255,.18);--ghi:rgba(255,255,255,.28);--gsh:rgba(0,0,0,.4);
 --sun1:#c99a2e;--sun2:#c9783a;--sun3:#c25a44;--sun4:#5b4a3c;--on:#f1f1ee;--onink:#16181d;color-scheme:dark}}
@@ -37,35 +38,40 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 
 /* 배경 원 */
 .bgfx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.bgfx i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
-.bgfx .o1{width:520px;height:520px;right:-120px;top:-140px;background:var(--sun1)}
-.bgfx .o2{width:420px;height:420px;right:22%;bottom:-180px;background:var(--sun3);opacity:.35}
-.bgfx .o3{width:360px;height:360px;left:-140px;bottom:8%;background:var(--sun4);opacity:.7}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+.bgfx .o1{width:820px;height:820px;right:-220px;top:-260px;background:var(--sun1)}
+.bgfx .o2{width:720px;height:720px;right:14%;bottom:-360px;background:var(--sun3);opacity:.42}
+.bgfx .o3{width:680px;height:680px;left:-280px;bottom:-120px;background:var(--sun4);opacity:.5}
 
 /* 틀: 왼쪽 서비스명·제목·설명, 오른쪽 선택지와 결과 */
-.app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);gap:56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:44px 72px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
-.side{position:sticky;top:44px;align-self:start;display:flex;flex-direction:column;gap:26px;min-width:0}
-.brand{font-family:"Outfit",-apple-system,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
-.brand::before{content:"";width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--sun1),var(--sun3))}
-.ttl{font-size:clamp(40px,5vw,68px);font-weight:700;line-height:1.08;letter-spacing:-.035em;margin:28px 0 0;text-wrap:balance}
-.desc{font-size:16px;color:var(--mut);margin:0;max-width:30em}
-.steps{display:flex;flex-direction:column;gap:2px;margin-top:6px}
-.steps .st{display:grid;grid-template-columns:30px auto 1fr;gap:8px;align-items:baseline;background:none;border:0;padding:6px 0;text-align:left;color:var(--mut);font-size:14px}
-.steps button.st{cursor:pointer}
-.steps .st .no{font-family:"Outfit",sans-serif;font-size:12px;font-variant-numeric:tabular-nums}
-.steps .st .sv{color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
-.steps .st.done{color:var(--ink)}
-.steps .st.now{color:var(--ink);font-weight:700}
-.steps .st.now .no::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sun3);margin-left:5px;vertical-align:middle}
-.nav{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
-.nav .hint{font-variant-numeric:tabular-nums}
+.app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);grid-template-rows:auto 1fr;gap:44px 56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:28px 140px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+.top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px}
+.brand{font-family:"Outfit",-apple-system,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1}
+.side{position:sticky;top:36px;align-self:start;display:flex;flex-direction:column;gap:22px;min-width:0}
+.ttl{font-size:clamp(32px,3.7vw,52px);font-weight:700;line-height:1.16;letter-spacing:-.03em;margin:0;text-wrap:balance;word-break:keep-all}
+.desc{font-size:16.5px;line-height:1.65;color:var(--mut);margin:0;max-width:30em;word-break:keep-all}
+.main{display:flex;flex-direction:column;gap:26px;min-width:0}
+/* 단계 표시: 오른쪽 위 */
+.steps{display:flex;flex-wrap:wrap;gap:8px}
+.steps .st{display:inline-flex;align-items:baseline;gap:6px;border-radius:999px;padding:8px 14px;font-size:13px;color:var(--mut);background:transparent;border:1px solid var(--hair);text-align:left}
+.steps .st .no{font-family:"Outfit",sans-serif;font-size:11.5px;font-variant-numeric:tabular-nums}
+.steps .st .sv{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--ink)}
+.steps .st .sv:empty{display:none}
+.steps button.st{cursor:pointer;background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);border-color:var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi)}
+.steps button.st:hover{background:var(--glass2)}
+.steps .st.now{background:var(--on);color:var(--onink);border-color:transparent;font-weight:600}
+/* 이전·다음·시작하기: 오른쪽 아래 고정 */
+.nav{position:fixed;z-index:15;bottom:calc(24px + env(safe-area-inset-bottom,0px));right:max(28px,calc((100vw - 1280px)/2 + 28px));display:flex;align-items:center;gap:10px;padding:8px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi),0 18px 44px -16px var(--gsh)}
+.nav:empty{display:none}
+.nav .btn{box-shadow:none}
+.nav .hint{font-variant-numeric:tabular-nums;padding:0 6px}
 .btn{font-size:16px;font-weight:600;border-radius:999px;padding:13px 30px}
 .btn.pri{background:var(--on);color:var(--onink);border-color:transparent;box-shadow:0 10px 26px -10px var(--gsh)}
 .btn.pri:hover:not(:disabled){background:var(--on);opacity:.88}
 .btn:disabled{opacity:.35;cursor:default}
 .hint{font-size:13.5px;color:var(--mut)}
 
-.scr{display:flex;flex-direction:column;gap:26px;min-width:0;padding-top:86px}
+.scr{display:flex;flex-direction:column;gap:26px;min-width:0}
 .q{font-size:30px;font-weight:700;line-height:1.25;letter-spacing:-.02em;margin:0;text-wrap:balance}
 .sub{font-size:16px;color:var(--mut);margin:-14px 0 0}
 
@@ -88,18 +94,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .opt[aria-pressed="true"] small{color:var(--onink);opacity:.7}
 
 /* 선배 활동 원 (학과 화면 그림) */
-.orbs{position:relative;height:440px;margin-top:10px}
+.orbs{position:relative;height:440px}
 .orb{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;gap:2px;border:1px solid var(--gbrd);box-shadow:inset 0 1px 0 var(--ghi),0 18px 40px -18px var(--gsh)}
-.orb b{font-size:15px;font-weight:600;line-height:1.25}
-.orb span{font-family:"Outfit",-apple-system,sans-serif;font-size:30px;font-weight:600;line-height:1.1}
-.orb small{font-size:11.5px;opacity:.75}
-.orb.a{width:210px;height:210px;left:2%;top:10px;background:var(--sun1);color:#16181d}
-.orb.b{width:170px;height:170px;left:36%;top:120px;background:var(--on);color:var(--onink)}
-.orb.c{width:190px;height:190px;left:60%;top:0;background:var(--sun4);color:#16181d}
-.orb.d{width:150px;height:150px;left:8%;top:250px;background:var(--sun3);color:#16181d}
+.orb b{font-size:15.5px;font-weight:600;line-height:1.25}
+.orb span{font-family:"Outfit",-apple-system,sans-serif;font-size:34px;font-weight:600;line-height:1.1}
+.orb.a{width:220px;height:220px;left:2%;top:10px;background:#ffe45c;color:#16181d}
+.orb.b{width:176px;height:176px;left:36%;top:126px;background:#ff9fb0;color:#16181d}
+.orb.c{width:196px;height:196px;left:61%;top:0;background:#b9f0c4;color:#16181d}
+.orb.d{width:156px;height:156px;left:8%;top:262px;background:#ffb561;color:#16181d}
 .orb.e{width:160px;height:160px;left:66%;top:230px;background:var(--glass2);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px)}
-:root[data-theme="dark"] .orb.c,:root[data-theme="dark"] .orb.a,:root[data-theme="dark"] .orb.d{color:#fff}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .orb.a,:root:not([data-theme="light"]) .orb.c,:root:not([data-theme="light"]) .orb.d{color:#fff}}
+
 
 /* 선택지 */
 .grid{display:grid;gap:12px}
@@ -150,7 +154,7 @@ details summary{cursor:pointer;color:var(--mut)}
 .bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
 
 /* 구조도 (참고용, 오른쪽 위 버튼) */
-.refbtn{position:fixed;z-index:20;top:calc(18px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px));font-size:13.5px;font-weight:600;border-radius:999px;padding:9px 18px}
+.refbtn{font-size:13.5px;font-weight:600;border-radius:999px;padding:9px 18px}
 .sheetwrap{position:fixed;inset:0;z-index:30;overflow:auto;background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
 .sheet{max-width:1040px;margin:0 auto;border-radius:30px;padding:22px;background:var(--bg);display:flex;flex-direction:column;gap:14px}
 .sheet .hd{display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -176,10 +180,10 @@ svg .m{fill:var(--mut)}
 .h{font-size:12px;font-weight:700;letter-spacing:.04em}
 
 @media (max-width:900px){
-  .app{grid-template-columns:1fr;gap:28px;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-  .side{position:static;gap:18px}
-  .ttl{margin-top:14px}
-  .scr{padding-top:0}
+  .app{grid-template-columns:1fr;grid-template-rows:auto;gap:24px;padding-block:20px 130px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .side{position:static;gap:14px}
+  .nav{right:max(16px,env(safe-area-inset-right,0px))}
+  .nav .btn{padding:12px 22px}
   .orbs{height:330px;transform-origin:left top}
   .orb.a{width:150px;height:150px}.orb.b{width:124px;height:124px;top:96px;left:38%}.orb.c{width:132px;height:132px;left:62%}.orb.d{width:112px;height:112px;top:190px}.orb.e{width:118px;height:118px;top:180px;left:62%}
   .orb span{font-size:22px}.orb b{font-size:12.5px}
@@ -190,16 +194,17 @@ svg .m{fill:var(--mut)}
 </style>
 
 <div class="bgfx" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
-<button type="button" class="refbtn" id="refbtn">구조도</button>
 <div class="app" id="pn-wireframe">
+  <header class="top"><div class="brand">Sunshine</div><button type="button" class="refbtn" id="refbtn">구조도</button></header>
   <aside class="side">
-    <div class="brand">Sunshine</div>
-    <h1 class="ttl">나와 닮은 선배</h1>
-    <p class="desc">같은 학과에서 같은 일을 하게 된 선배들이 실제로 한 활동을 바탕으로, 지금 할 활동과 학교 프로그램을 추천해요.</p>
-    <div class="steps" id="steps"></div>
-    <div class="nav" id="nav"></div>
+    <h1 class="ttl" id="ttl"></h1>
+    <p class="desc" id="desc"></p>
   </aside>
-  <main class="scr" id="scr"></main>
+  <main class="main">
+    <div class="steps" id="steps" hidden></div>
+    <div class="scr" id="scr"></div>
+  </main>
+  <div class="nav" id="nav"></div>
 </div>
 <div class="sheetwrap" id="pn-structure" hidden>
   <div class="sheet">
@@ -362,7 +367,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape') return; showRef(false); if(
 
 /* 와이어프레임 화면: 1 학과 → 2 희망 직무 → 3 학년 → 4 한 활동 → rank 순위 → detail 활동 상세, fav 관심 목록 */
 const STEPS=['학과','학년','희망 직무','지금 고민','선호 방식','추천 결과'];
-const st={scr:1,back:'rank',q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},forms:{},fav:{},more:{},detail:null,all:false,open:false};
+const st={scr:0,back:'rank',q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},forms:{},fav:{},more:{},detail:null,all:false,open:false};
 const CHO='ㄱㄱㄴㄷㄷㄹㅁㅂㅂㅅㅅㅇㅈㅈㅊㅋㅌㅍㅎ', INI=['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ','A-Z'];
 function cho(s){return [...s].map(ch=>{const c=ch.charCodeAt(0);return c>=0xAC00&&c<=0xD7A3?CHO[Math.floor((c-0xAC00)/588)]:ch;}).join('');}
 const DEPS=D.dep.map(d=>{const c=cho(d[1]);return {col:d[0],name:d[1],cho:c.replace(/[^ㄱ-ㅎA-Za-z]/g,''),ini:/[ㄱ-ㅎ]/.test(c[0])?c[0]:'A-Z'};}).sort((a,b)=>a.name.localeCompare(b.name,'ko'));
@@ -377,9 +382,9 @@ function depList(){
 }
 /* 학과 화면 그림: 4년제 선배 전체가 한 활동과 참여율 (GOMS 2016~2019) */
 function orbs(){
-  const A=D.stat.A, o=(k,name,c)=>'<div class="orb '+c+'"><b>'+name+'</b><span>'+pct(A[k][1]/A[k][0])+'</span><small>선배가 했어요</small></div>';
+  const A=D.stat.A, o=(k,name,c)=>'<div class="orb '+c+'"><b>'+name+'</b><span>'+pct(A[k][1]/A[k][0])+'</span></div>';
   return '<div class="orbs" aria-label="4년제 선배가 취업 준비로 한 활동">'+o('자격증 준비','자격증 준비','a')+o('직장체험(인턴 포함)','인턴·직장체험','b')+o('영어 등 외국어 공부','외국어 공부','c')+o('(모의)면접 준비','면접 준비','d')+o('취업 관련 서류 작성 교육','자소서·이력서 교육','e')+'</div>'+
-    '<div class="hint">4년제 졸업 선배 전체 기준이에요 (대졸자직업이동경로조사 2016~2019).</div>';
+    '<div class="hint">4년제 졸업 선배가 취업 준비로 한 활동과 참여율이에요 (대졸자직업이동경로조사 2016~2019).</div>';
 }
 function stepVal(i){return [st.dep,st.grade,st.job==='?'?'아직 모름':(st.sub||st.job),Object.keys(st.worries).length?Object.keys(st.worries).length+'개 선택':'',Object.keys(st.forms).length?Object.keys(st.forms).length+'개 선택':'',''][i]||'';}
 function stepNo(){return typeof st.scr==='number'?st.scr:6;}
@@ -399,40 +404,46 @@ function render(){
   const s=stepNo();
   $('#steps').innerHTML=STEPS.map((n,i)=>{const done=i+1<s, in_='<span class="no">0'+(i+1)+'</span><span class="sn">'+n+'</span><span class="sv">'+esc(done?stepVal(i):'')+'</span>';
     return done?'<button type="button" class="st done" data-a="go" data-v="'+(i+1)+'">'+in_+'</button>':'<div class="st'+(i+1===s?' now':'')+'">'+in_+'</div>';}).join('');
-  let h='', nav='';
-  const navStd=(n)=>'<button type="button" class="btn" data-a="go" data-v="'+(n-1)+'"'+(n===1?' disabled':'')+'>이전</button><span class="hint">'+n+' / 5</span><button type="button" class="btn pri" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 보기':'다음')+'</button>';
-  if(st.scr===1){
-    h='<h2 class="q">어느 학과에 다니나요?</h2>'+
+  let h='', nav='', T='', S='';  /* T, S: 왼쪽 제목과 설명 */
+  $('#steps').hidden=st.scr===0;
+  const navStd=(n)=>'<button type="button" class="btn" data-a="go" data-v="'+(n-1)+'">이전</button><span class="hint">'+n+' / 5</span><button type="button" class="btn pri" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 보기':'다음')+'</button>';
+  if(st.scr===0){
+    T='진로 선택에 도움 되는 학교 프로그램 추천';
+    S='같은 학과에서 같은 직무로 취업한 선배들이 실제로 한 활동을 바탕으로, 성신여대 학생에게 지금 해야 할 취업 준비 활동과 관련된 학교 프로그램을 추천해드릴게요.';
+    h=orbs();
+    nav='<button type="button" class="btn pri" data-a="go" data-v="1">시작하기</button>';
+  } else if(st.scr===1){
+    T='어느 학과에 다니나요?'; S='학과가 같은 선배를 찾는 데 써요. 목록에서 고르거나 이름으로 검색해요.'; h=
       '<div class="combo"><button type="button" class="sel" data-a="depopen" aria-haspopup="listbox" aria-expanded="'+(!!st.depopen)+'">'+(st.dep?'<span>'+esc(st.dep)+'</span>':'<span class="ph">학과 선택</span>')+'<i class="cv"></i></button>'+
-      (st.depopen?'<div class="pop"><input class="find" id="depq" type="search" placeholder="학과 이름 검색 (예: 경영, ㅅㅂㅅ)" aria-label="학과 이름 검색" value="'+esc(st.q)+'" autocomplete="off"><div id="deplist" role="listbox">'+depList()+'</div></div>':'')+'</div>'+orbs();
+      (st.depopen?'<div class="pop"><input class="find" id="depq" type="search" placeholder="학과 이름 검색 (예: 경영, ㅅㅂㅅ)" aria-label="학과 이름 검색" value="'+esc(st.q)+'" autocomplete="off"><div id="deplist" role="listbox">'+depList()+'</div></div>':'')+'</div>';
     nav=navStd(1);
   } else if(st.scr===3){
     const J=D.jobs.find(j=>j[0]===st.job);
     const subp=J&&J[2].length?'<div id="subsec" class="subp"><div class="gl">'+esc(J[0])+' 안에서 더 구체적으로 고르기 (선택)</div><div class="grid c4">'+
       '<button type="button" class="tile" data-a="sub" data-v="" aria-pressed="'+(!st.sub)+'">전체<small>선배 '+J[1].toLocaleString()+'명</small></button>'+
       J[2].map(s=>'<button type="button" class="tile" data-a="sub" data-v="'+esc(s[0])+'" aria-pressed="'+(st.sub===s[0])+'">'+esc(s[0])+'<small>선배 '+s[1].toLocaleString()+'명</small></button>').join('')+'</div></div>':'';
-    h='<h2 class="q">어떤 일을 하고 싶나요?</h2><p class="sub">숫자는 그 일을 하는 4년제 선배 수(2016~2019년 졸업생 조사)예요. 점선은 100명 미만이라 값이 불안정해요.</p>'+
+    T='어떤 일을 하고 싶나요?'; S='숫자는 그 일을 하는 4년제 선배 수(2016~2019년 졸업생 조사)예요. 점선은 100명 미만이라 값이 불안정해요.'; h=
       '<div class="grid c4 dense"><button type="button" class="tile" data-a="job" data-v="?" aria-pressed="'+(st.job==='?')+'">아직 모름<small>같은 전공 선배 전체로 계산</small></button>'+
       D.jobs.map(j=>'<button type="button" class="tile'+(j[1]<100?' dim':'')+'" data-a="job" data-v="'+esc(j[0])+'" aria-pressed="'+(st.job===j[0])+'">'+esc(j[0])+'<small>선배 '+j[1].toLocaleString()+'명'+(j[2].length?' · 세부 '+j[2].length+'개':'')+'</small></button>'+(st.job===j[0]?subp:'')).join('')+'</div>';
     nav=navStd(3);
   } else if(st.scr===2){
-    h='<h2 class="q">지금 몇 학년인가요?</h2><p class="sub">학년에 맞는 프로그램을 먼저 보여 줘요.</p>'+
+    T='지금 몇 학년인가요?'; S='학년에 맞는 프로그램을 먼저 보여 줘요.'; h=
       '<div class="grid c5">'+['1학년','2학년','3학년','4학년','졸업생'].map(g=>'<button type="button" class="tile big" data-a="grade" data-v="'+g+'" aria-pressed="'+(st.grade===g)+'">'+g+'</button>').join('')+'</div>';
     nav=navStd(2);
   } else if(st.scr===4){
-    h='<h2 class="q">지금 어떤 고민이 있나요?</h2><p class="sub">여러 개 골라도 돼요. 고민과 관련된 활동을 순위에서 올려 줘요. 없으면 바로 넘어가도 돼요.</p>'+
+    T='지금 어떤 고민이 있나요?'; S='여러 개 골라도 돼요. 고민과 관련된 활동을 순위에서 올려 줘요. 없으면 바로 넘어가도 돼요.'; h=
       '<div class="chips">'+WO.map(w=>'<button type="button" class="chip" data-a="worry" data-v="'+esc(w[0])+'" aria-pressed="'+(!!st.worries[w[0]])+'">'+esc(w[0])+'</button>').join('')+'</div>'+
       '<div class="hint">고민 태그는 예상 값이에요. 에브리타임 글 분석이 끝나면 바뀌어요.</div>';
     nav=navStd(4);
   } else if(st.scr===5){
-    h='<h2 class="q">어떤 방식의 프로그램이 좋나요?</h2><p class="sub">여러 개 골라도 돼요. 고른 방식의 프로그램을 먼저 보여 줘요. 없으면 바로 넘어가도 돼요.</p>'+
+    T='어떤 방식의 프로그램이 좋나요?'; S='여러 개 골라도 돼요. 고른 방식의 프로그램을 먼저 보여 줘요. 없으면 바로 넘어가도 돼요.'; h=
       '<div class="chips">'+FM.map(f=>'<button type="button" class="chip" data-a="form" data-v="'+esc(f[0])+'" aria-pressed="'+(!!st.forms[f[0]])+'">'+esc(f[0])+'</button>').join('')+'</div>'+
       '<div class="hint">선샤인 프로그램 목록의 "프로그램 형태" 값이에요. 형태가 적혀 있지 않은 프로그램도 있어요.</div>';
     nav=navStd(5);
   } else if(st.scr==='rank'){
     const R=recommend(st), list=st.all?R.list:R.list.slice(0,5);
-    h='<h2 class="q">선배들은 이 활동이 도움 됐다고 했어요</h2>'+
-      '<div class="cond"><b>'+esc(condText())+'</b><span class="hint">비슷한 선배: '+esc(R.grpName)+' '+R.grpN.toLocaleString()+'명'+(R.grpN<100?' <span class="none">(100명 미만)</span>':'')+'</span></div>'+
+    T='선배들은 이 활동이 도움 됐다고 했어요'; S=''; h=
+      (S=esc(condText())+'<br>비슷한 선배: '+esc(R.grpName)+' '+R.grpN.toLocaleString()+'명'+(R.grpN<100?' <span class="none">(100명 미만)</span>':''),'')+
       '<div class="blks">'+list.map((a,i)=>{const P=programs(a.t,st);return '<section class="blk"><div class="row"><span class="rk">'+(i+1)+'</span><span><span class="nm">'+esc(lab(a.t))+(a.road?'<span class="tag">'+st.grade+' 로드맵 권장</span>':'')+(a.worry.length?'<span class="tag">내 고민 관련</span>':'')+'</span><span class="wy">비슷한 선배 '+pct(a.rawRate)+'가 했어요 · 도움 점수 '+(a.rawHelp?a.rawHelp.toFixed(2):'-')+'점</span></span><span class="go">'+(P.list.length?'선샤인 프로그램 '+P.list.length+'개':'<span class="none">프로그램 없음</span>')+'</span></div>'+calcBox(a)+progRows(a.t)+'</section>';}).join('')+'</div>';
     if(R.list.length>5) h+='<div><button type="button" class="lk" data-a="all">'+(st.all?'5위까지만 보기':(R.list.length)+'위까지 모두 보기')+'</button></div>';
     if(EXTRA.length) h+='<div class="h3">선배 데이터에는 없지만 선샤인에 있는 활동</div><div class="rows">'+EXTRA.map(t=>{const P=programs(t,st);return '<button type="button" class="row" data-a="detail" data-v="'+esc(t)+'"><span class="rk">–</span><span><span class="nm">'+esc(t)+((ROAD[st.grade]||[]).includes(t)?'<span class="tag">'+st.grade+' 로드맵 권장</span>':'')+'</span><span class="wy">선배 설문에 없는 활동이라 순위를 매기지 않았어요</span></span><span class="go">선샤인 프로그램 '+P.list.length+'개 ›</span></button>';}).join('')+'</div>';
@@ -451,11 +462,11 @@ function render(){
     nav='<button type="button" class="btn" data-a="go" data-v="rank">순위로</button><span></span><span></span>';
   } else if(st.scr==='fav'){
     const ids=Object.keys(st.fav);
-    h='<h2 class="q">관심 프로그램 '+ids.length+'개</h2>'+(ids.length?'<div class="pl">'+ids.map(id=>{const p=D.prog.find(x=>x.i==id);return '<div class="p"><span class="pn">'+esc(p.n)+'<span class="wh">'+esc(lab(p.t))+' · 선샤인 메뉴: '+esc(p.tab)+'</span></span><button type="button" data-a="favtoggle" data-v="'+p.i+'" aria-pressed="true">관심 ✓</button></div>';}).join('')+'</div>':'<div class="empty">프로그램에서 "관심"을 누르면 여기에 모여요.</div>');
+    T='관심 프로그램 '+ids.length+'개'; S=''; h=(ids.length?'<div class="pl">'+ids.map(id=>{const p=D.prog.find(x=>x.i==id);return '<div class="p"><span class="pn">'+esc(p.n)+'<span class="wh">'+esc(lab(p.t))+' · 선샤인 메뉴: '+esc(p.tab)+'</span></span><button type="button" data-a="favtoggle" data-v="'+p.i+'" aria-pressed="true">관심 ✓</button></div>';}).join('')+'</div>':'<div class="empty">프로그램에서 "관심"을 누르면 여기에 모여요.</div>');
     nav='<button type="button" class="btn" data-a="go" data-v="'+st.back+'">돌아가기</button><span></span><span></span>';
   }
-  $('#scr').innerHTML=h; $('#nav').innerHTML=nav;
-  if(st.depopen){const i=$('#depq'); if(i&&i.focus) try{i.focus();}catch(e){}}
+  $('#scr').innerHTML=h; $('#nav').innerHTML=nav; $('#ttl').textContent=T; $('#desc').innerHTML=S;
+  if(st.scr===1&&st.depopen){const i=$('#depq'); if(i&&i.focus) try{i.focus();}catch(e){}}
 }
 $('#pn-wireframe').addEventListener('click',e=>{
   const b=e.target.closest('[data-a]');
@@ -472,14 +483,14 @@ $('#pn-wireframe').addEventListener('click',e=>{
   else if(a==='key'){ if(st.keys[v]) delete st.keys[v]; else st.keys[v]=1; }
   else if(a==='worry'){ if(st.worries[v]) delete st.worries[v]; else st.worries[v]=1; }
   else if(a==='form'){ if(st.forms[v]) delete st.forms[v]; else st.forms[v]=1; }
-  else if(a==='go'){st.scr=/^\d+$/.test(v)?+v:v; st.open=false; scrollTop();}
+  else if(a==='go'){st.scr=/^\d+$/.test(v)?+v:v; st.open=false; st.depopen=st.scr===1&&!st.dep; st.q=''; scrollTop();}
   else if(a==='detail'){st.detail=v; st.scr='detail'; st.open=false; scrollTop();}
   else if(a==='all') st.all=!st.all;
   else if(a==='more'){ if(st.more[v]) delete st.more[v]; else st.more[v]=1; }
   else if(a==='open') st.open=!st.open;
   else if(a==='favtoggle'){ if(st.fav[v]) delete st.fav[v]; else st.fav[v]=1; }
   else if(a==='fav'){ if(st.scr!=='fav'){st.back=st.scr; st.scr='fav';} }
-  else if(a==='reset'){Object.assign(st,{scr:1,q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},forms:{},detail:null,all:false,open:false,more:{}});}
+  else if(a==='reset'){Object.assign(st,{scr:1,depopen:true,q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},forms:{},detail:null,all:false,open:false,more:{}});}
   render();
   if(a==='job'){const e2=$('#subsec'); if(e2&&e2.scrollIntoView) try{e2.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(_){}}
 });
