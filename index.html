@@ -138,6 +138,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .pc:hover{transform:translateY(-4px);box-shadow:0 1px 0 var(--hair),0 30px 60px -40px rgba(70,52,130,.35)}
 .pc .rk{font-family:Inter,sans-serif;font-size:var(--t1);font-weight:600;color:var(--pri);letter-spacing:.04em}
 .pc .nm{font-size:var(--t4);font-weight:700;line-height:1.38;letter-spacing:-.02em}
+.pc .wq{display:flex}
+.pc .wq span{font-size:var(--t1);font-weight:600;color:var(--pri);background:var(--pri-soft);border-radius:999px;padding:4px 11px;line-height:1.4}
 .pc .why{font-size:var(--t2);color:var(--ink2);line-height:1.5}
 .pc .sp{flex:1}
 .stack{display:flex;height:8px;border-radius:8px;overflow:hidden;background:var(--soft)}
@@ -318,7 +320,7 @@ function recommend(q){
     const m=forms.length&&p.m.some(x=>forms.includes(x))?1:0;
     const sr=rateOf(p), s=Math.min(sr.v/maxRate,1);
     const mp=mainP(p.tg), wc=codes.slice().sort((a,b)=>NEED[b][mp]-NEED[a][mp])[0];
-    return {p,raw,w,m,s,sr,score:W_WORRY*w+W_METHOD*m+W_SENIOR*s,why:wc?'‘'+WO.find(x=>x[0]===wc)[1]+'’라고 해서, '+PURP[mp]+' 프로그램을 골랐어요.':'비슷한 선배들에게 도움이 된 활동과 같은 목적의 프로그램이에요.'};});
+    return {p,raw,w,m,s,sr,score:W_WORRY*w+W_METHOD*m+W_SENIOR*s,wq:wc?WO.find(x=>x[0]===wc)[1]:'',why:wc?PURP[mp]+' 프로그램을 골랐어요.':'비슷한 선배들에게 도움이 된 활동과 같은 목적의 프로그램이에요.'};});
   scored.sort((a,b)=>b.score-a.score||a.p.n.localeCompare(b.p.n,'ko'));
   /* 1-3: 같은 종류(GOMS 활동명)는 1개만 */
   const top=[], kinds=new Set();
@@ -408,10 +410,9 @@ function actBody(r){
 function result(animate){
   const R=recommend(st);
   const cond=[['학과',st.dep],['학년',st.grade],['희망 직무',st.job==='?'?'아직 모름':st.job]];
-  const tags=[...wSel().map(w=>w[1]),...fSel()];
   let h='<div class="rtop"><div><div class="eyebrow ln"><span>추천 결과</span></div><h2>'+L('<em>'+esc(st.dep)+'</em> '+esc(st.grade)+'에게\n맞는 선샤인 프로그램')+'</h2><div class="cond f">'+cond.map(c=>'<span><b>'+c[0]+'</b>'+esc(c[1])+'</span>').join('')+'</div></div></div>';
-  h+='<section class="sec"><h3>내 고민에 맞는 선샤인 프로그램</h3><p class="sub">신청할 수 있는 프로그램 '+R.E.list.length+'개 중 상위 3개예요. 고민 60점 · 참여 방식 20점 · 선배 20점, 100점 만점으로 계산했어요.</p>'+(tags.length?'<div class="tags f">'+tags.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>':'');
-  h+=R.top.length?'<div class="top3 s">'+S(R.top.map((x,i)=>{const a=W_WORRY*x.w,b=W_METHOD*x.m,c=W_SENIOR*x.s;return '<article class="pc"><span class="rk">0'+(i+1)+'</span><div class="nm">'+esc(x.p.n)+'</div><div class="why">'+esc(x.why)+'</div><span class="sp"></span>'+
+  h+='<section class="sec"><h3>내 고민에 맞는 선샤인 프로그램</h3><p class="sub">신청할 수 있는 프로그램 '+R.E.list.length+'개 중 상위 3개예요. 고민 60점 · 참여 방식 20점 · 선배 20점, 100점 만점으로 계산했어요.</p>';
+  h+=R.top.length?'<div class="top3 s">'+S(R.top.map((x,i)=>{const a=W_WORRY*x.w,b=W_METHOD*x.m,c=W_SENIOR*x.s;return '<article class="pc"><span class="rk">0'+(i+1)+'</span><div class="nm">'+esc(x.p.n)+'</div>'+(x.wq?'<div class="wq"><span>'+esc(x.wq)+'</span></div>':'')+'<div class="why">'+esc(x.why)+'</div><span class="sp"></span>'+
     '<div class="stack"><i class="a" style="width:'+a+'%"></i><i class="b" style="width:'+b+'%"></i><i class="c" style="width:'+c+'%"></i></div><div class="leg"><span>고민 <b>'+a.toFixed(1)+'</b></span><span>방식 <b>'+b+'</b></span><span>선배 <b>'+c.toFixed(1)+'</b></span><span>합계 <b>'+x.score.toFixed(1)+'</b></span></div>'+
     '<div class="ft"><span class="meta">'+esc([x.p.m.join(', '),per(x.p)].filter(Boolean).join(' · '))+'</span>'+link(x.p)+'</div></article>';}))+'</div>':'<p class="none">지금 신청할 수 있는 프로그램이 없어요.</p>';
   h+='</section><section class="sec"><h3>나와 비슷한 선배가 도움 받은 활동</h3><p class="sub">'+esc(R.sim.label)+' 선배 '+R.sim.n.toLocaleString()+'명 기준이에요. 선배들이 4~5점(5점 만점)으로 도움 됐다고 답한 비율이 높은 순서예요.</p>';
