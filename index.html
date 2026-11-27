@@ -207,7 +207,7 @@ svg .m{fill:var(--mut)}
 
 <div class="bgfx" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
 <div class="app" id="pn-wireframe">
-  <header class="top"><button type="button" class="brand" data-a="home" aria-label="Sunshine 처음으로">Sunshine</button><div class="refs"><a class="refbtn" href="algorithm.html">알고리즘</a><button type="button" class="refbtn" id="refbtn">구조도</button><a class="refbtn" href="wireframe.html#wireframe">와이어프레임</a></div></header>
+  <header class="top"><button type="button" class="brand" data-a="home" aria-label="Sunshine 처음으로">Sunshine</button><div class="refs"><a class="refbtn" href="algorithm.html">구조도</a><a class="refbtn" href="wireframe.html#wireframe">와이어프레임</a></div></header>
   <aside class="side">
     <h1 class="ttl" id="ttl"></h1>
     <p class="desc" id="desc"></p>
@@ -374,7 +374,6 @@ const pct=x=>Math.round(x*100)+'%';
 
 /* 구조도: 오른쪽 위 버튼으로 열고 닫는 참고 화면 */
 function showRef(on){$('#pn-structure').hidden=!on;}
-$('#refbtn').addEventListener('click',()=>showRef(true));
 $('#refclose').addEventListener('click',()=>showRef(false));
 addEventListener('keydown',e=>{ if(e.key!=='Escape') return; showRef(false); if(st.depopen){st.depopen=false; render();} });
 
