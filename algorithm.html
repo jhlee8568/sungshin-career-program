@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Sunshine 추천 알고리즘</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%236348AE'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23111111'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 /* 와이어프레임 스타일: 흑백, 직각. 색은 "미정"(보라)과 "확인 필요"(주황)에만 사용.
    출처: 팀 문서 「알고리즘 설명」(2026-11-26) + 구글 시트 원자료 대조(2026-11-27) */
-:root{--bg:#fff;--ink:#111;--mut:#5c5c5c;--hair:#cfcfcf;--g1:#f1f1f1;--g2:#e0e0e0;--tbd:#6348AE;--tbd2:#efeafa;--chk:#b25400;--chk2:#fff1e0;--ok:#1a7a3c;color-scheme:light}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#ededed;--mut:#a5a5a5;--hair:#4a4a4a;--g1:#222;--g2:#333;--tbd:#b3a0ee;--tbd2:#2a2440;--chk:#ffb066;--chk2:#3a2a18;--ok:#6fd08f;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#141414;--ink:#ededed;--mut:#a5a5a5;--hair:#4a4a4a;--g1:#222;--g2:#333;--tbd:#b3a0ee;--tbd2:#2a2440;--chk:#ffb066;--chk2:#3a2a18;--ok:#6fd08f;color-scheme:dark}
+:root{--bg:#fff;--ink:#111;--mut:#5c5c5c;--hair:#cfcfcf;--g1:#f1f1f1;--g2:#e0e0e0;--tbd:#555;--tbd2:#f4f4f4;--chk:#333;--chk2:#f6f6f6;--ok:#444;color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--ink:#ededed;--mut:#a5a5a5;--hair:#4a4a4a;--g1:#222;--g2:#333;--tbd:#bdbdbd;--tbd2:#262626;--chk:#d2d2d2;--chk2:#262626;--ok:#bdbdbd;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141414;--ink:#ededed;--mut:#a5a5a5;--hair:#4a4a4a;--g1:#222;--g2:#333;--tbd:#bdbdbd;--tbd2:#262626;--chk:#d2d2d2;--chk2:#262626;--ok:#bdbdbd;color-scheme:dark}
 *{box-sizing:border-box}
 i{font-style:normal}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;font-size:14px;line-height:1.5;word-break:keep-all}
@@ -47,7 +47,7 @@ h3{font-size:14.5px;margin:0;line-height:1.35}
 .bx.d{border-color:var(--hair);background:var(--g1)}
 .bx .no{font-size:12px;font-weight:700}
 .bx p{margin:0;font-size:13px}
-.ex{font-size:12.5px;border-top:1px solid var(--hair);padding-top:6px;font-variant-numeric:tabular-nums}
+.ex{font-size:12.5px;padding-top:2px;font-variant-numeric:tabular-nums}
 .ex b{font-size:15px}
 .ar{align-self:center;justify-self:center;font-size:20px;line-height:1;color:var(--ink)}
 /* 마우스를 올리면 뜨는 설명 */
@@ -73,7 +73,7 @@ h3{font-size:14.5px;margin:0;line-height:1.35}
 .dg2 rect.o{fill:var(--bg);stroke:var(--mut);stroke-width:1.5}
 .dg2 rect.grp{fill:none;stroke:var(--ink);stroke-width:2.5}
 .dg2 rect.gt{fill:var(--ink)} .dg2 text.gtx{fill:var(--bg);font-size:12px;font-weight:700}
-.dg2 .hr{stroke:var(--hair);stroke-width:1}
+.dg2 .hr{display:none}
 .dg2 .ln{fill:none;stroke:var(--ink);stroke-width:1.4} .dg2 .ahf,.dg2 .dot{fill:var(--ink)}
 .dg2 text.col{font-size:13.5px;font-weight:700}
 .dg2 text.no{font-size:12px;font-weight:700} .dg2 text.h{font-size:14.5px;font-weight:700}
@@ -108,10 +108,9 @@ h3{font-size:14.5px;margin:0;line-height:1.35}
 @media (max-width:1250px){.dgwrap{overflow-x:auto;padding-bottom:240px}}
 /* 1 전체 구조 */
 .map{display:grid;grid-template-columns:150px minmax(0,1fr);gap:0;border:1.5px solid var(--ink)}
-.map>.lab{padding:14px;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);font-weight:700;font-size:14px;background:var(--g1);display:flex;flex-direction:column;gap:4px}
+.map>.lab{padding:14px;font-weight:700;font-size:14px;background:var(--g1);display:flex;flex-direction:column;gap:4px}
 .map>.lab small{font-weight:400;font-size:12px;color:var(--mut)}
-.map>.row{padding:14px;border-bottom:1.5px solid var(--ink);min-width:0}
-.map>.lab:nth-last-child(2),.map>.row:last-child{border-bottom:0}
+.map>.row{padding:14px;min-width:0}
 .inputs{display:flex;flex-wrap:wrap;gap:8px}
 .inputs .bx{flex:1 1 150px;padding:9px 12px}
 .steps{display:grid;gap:8px;align-items:stretch}
@@ -121,14 +120,14 @@ h3{font-size:14.5px;margin:0;line-height:1.35}
 .datas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 /* 2 점수 계산 */
 .score{display:grid;grid-template-columns:150px 1.25fr 22px 1fr 22px 92px 22px 1.1fr;gap:8px;align-items:stretch}
-.score .hd{font-size:12.5px;font-weight:700;border-bottom:1.5px solid var(--ink);padding-bottom:4px;align-self:end}
+.score .hd{font-size:12.5px;font-weight:700;padding-bottom:4px;align-self:end}
 .score .nm{font-weight:700;font-size:15px;display:flex;flex-direction:column;justify-content:center;gap:2px}
 .score .nm small{font-weight:400;font-size:12px;color:var(--mut)}
 .w{border:1.5px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:18px;background:var(--g1)}
 .w small{font-size:11px;font-weight:500}
 .bar{height:12px;background:var(--g2);position:relative}
 .bar i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
-.sum{grid-column:1/-1;display:flex;justify-content:flex-end;align-items:baseline;gap:10px;border-top:2px solid var(--ink);padding-top:8px;font-size:14px}
+.sum{grid-column:1/-1;display:flex;justify-content:flex-end;align-items:baseline;gap:10px;padding-top:8px;font-size:14px}
 .sum b{font-size:26px;font-variant-numeric:tabular-nums}
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .three .bx h3{font-size:14px}
@@ -140,7 +139,7 @@ h3{font-size:14.5px;margin:0;line-height:1.35}
 .mini span.on{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
 .tw{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
-th,td{border:1px solid var(--hair);padding:6px 9px;text-align:left;vertical-align:top}
+th,td{border:0;padding:7px 10px;text-align:left;vertical-align:top}
 th{background:var(--g1);font-weight:600;white-space:nowrap}
 td.n,th.n{text-align:center}
 .heat td.n{font-weight:500}
@@ -151,7 +150,7 @@ td.n,th.n{text-align:center}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 td .b{margin-left:2px}
 @media (max-width:900px){
-  .map{grid-template-columns:1fr}.map>.lab{border-right:0}
+  .map{grid-template-columns:1fr}
   .steps,.score,.why,.calc,.tagflow,.three,.datas,.two{grid-template-columns:1fr}
   .ar{transform:rotate(90deg);padding:2px 0}
   .score .hd{display:none}
