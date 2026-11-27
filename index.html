@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%236f5ea5'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%236348AE'/%3E%3C/svg%3E">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -13,9 +13,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
 /* Sunshine: 밝은 바탕 + 햇빛색 원 + 글래스(반투명·블러·밝은 테두리) 버튼. 색은 토큰으로만 쓴다. */
-:root{--bg:#f5f4f0;--ink:#16181d;--mut:#6c7079;--line:#16181d;--hair:rgba(22,24,29,.12);--g1:#ecebe6;--g2:#dddcd6;--no:#c8452f;
+:root{--bg:#F3F4FB;--ink:#16181d;--mut:#6c7079;--line:#16181d;--hair:rgba(22,24,29,.12);--g1:#e9eaf6;--g2:#dcdeef;--no:#c8452f;
 --glass:rgba(255,255,255,.52);--glass2:rgba(255,255,255,.72);--gbrd:rgba(255,255,255,.75);--ghi:rgba(255,255,255,.95);--gsh:rgba(60,45,110,.14);
---sun1:#e9e5f5;--sun2:#806cb1;--sun3:#6f5ea5;--sun4:#d9d2ec;--on:#6f5ea5;--onink:#fff;--tagink:#4f4285}
+--sun1:#ebe6f8;--sun2:#7d64c9;--sun3:#6348AE;--sun4:#d8cff0;--on:#6348AE;--onink:#fff;--tagink:#4a3590}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121317;--ink:#f1f1ee;--mut:#a0a4ac;--line:#f1f1ee;--hair:rgba(255,255,255,.14);--g1:#1c1d22;--g2:#2a2b31;--no:#ff9c8a;
 --glass:rgba(255,255,255,.08);--glass2:rgba(255,255,255,.14);--gbrd:rgba(255,255,255,.18);--ghi:rgba(255,255,255,.28);--gsh:rgba(0,0,0,.4);
 --sun1:#3a3354;--sun2:#a99bdc;--sun3:#9a8bd0;--sun4:#2e2942;--on:#a99bdc;--onink:#16181d;--tagink:#ece8f8;color-scheme:dark}}
@@ -44,7 +44,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 /* 틀: 왼쪽 서비스명·제목·설명, 오른쪽 선택지와 결과 */
 .app{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,36%) minmax(0,1fr);grid-template-rows:auto 1fr;align-content:start;gap:44px 56px;max-width:1280px;margin:0 auto;min-height:100vh;padding-block:28px 140px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
 .top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px}
-.brand{font-family:"Outfit",-apple-system,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1}
+.brand{background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font-family:"Outfit",-apple-system,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1}
 .side{position:sticky;top:36px;align-self:start;display:flex;flex-direction:column;gap:22px;min-width:0}
 .ttl{font-size:clamp(32px,3.7vw,52px);font-weight:700;line-height:1.16;letter-spacing:-.03em;margin:0;text-wrap:balance;word-break:keep-all}
 .desc{font-size:16.5px;line-height:1.65;color:var(--mut);margin:0;max-width:30em;word-break:keep-all}
@@ -207,7 +207,7 @@ svg .m{fill:var(--mut)}
 
 <div class="bgfx" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
 <div class="app" id="pn-wireframe">
-  <header class="top"><div class="brand">Sunshine</div><div class="refs"><button type="button" class="refbtn" id="refbtn">구조도</button><a class="refbtn" href="wireframe.html#wireframe">와이어프레임</a></div></header>
+  <header class="top"><button type="button" class="brand" data-a="home" aria-label="Sunshine 처음으로">Sunshine</button><div class="refs"><a class="refbtn" href="algorithm.html">알고리즘</a><button type="button" class="refbtn" id="refbtn">구조도</button><a class="refbtn" href="wireframe.html#wireframe">와이어프레임</a></div></header>
   <aside class="side">
     <h1 class="ttl" id="ttl"></h1>
     <p class="desc" id="desc"></p>
@@ -488,6 +488,7 @@ $('#pn-wireframe').addEventListener('click',e=>{
   if(b.dataset.a==='nolink'){ e.preventDefault(); return; }  /* 링크 연결 전 */
   const a=b.dataset.a, v=b.dataset.v;
   if(a==='ini'){st.ini=v==='전체'?'':v; st.q='';}
+  else if(a==='home'){Object.assign(st,{scr:0,depopen:false,q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},forms:{},detail:null,all:false,open:false,more:{}}); scrollTop();}
   else if(a==='depopen'){st.depopen=!st.depopen; st.q='';}
   else if(a==='dep'){st.dep=v; st.depopen=false; st.q=''; st.scr=2; scrollTop();}  /* 학과를 고르면 바로 다음 단계로 */
   else if(a==='job'){st.job=v; st.sub='';}
