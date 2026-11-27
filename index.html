@@ -202,6 +202,14 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .fog i:nth-child(4){width:30vmax;height:14vmax;left:6vmax;top:14vh;opacity:.45}
 .home .in{position:relative;z-index:1}
 .home.in-anim .fog{animation:fade 2s ease-out 1.2s both}
+/* 글자 위에 걸친 옅은 안개: 그 부분만 살짝 번져 보임 */
+.hz{position:absolute;z-index:2;pointer-events:none;border-radius:50%;
+  -webkit-backdrop-filter:blur(3.5px);backdrop-filter:blur(3.5px);background:radial-gradient(closest-side,var(--fog),transparent);
+  -webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent 92%);mask-image:radial-gradient(closest-side,#000 25%,transparent 92%)}
+.hz1{width:62%;height:46%;right:-14%;top:14%;opacity:.95}
+.hz2{width:34%;height:30%;left:-16%;top:30%;opacity:.7}
+.home.in-anim .hz{animation:hzIn 2.2s ease-out 1.3s both}
+@keyframes hzIn{from{opacity:0}}
 .in-anim .f{animation:fade .9s var(--out) both;animation-delay:.12s}
 .in-anim .s>*{animation:fade .8s var(--out) both;animation-delay:calc(var(--i,0)*45ms + .18s)}
 .in-anim .bar i,.in-anim .stack i{animation:grow 1.4s var(--out) both;animation-delay:.4s;transform-origin:left}
@@ -235,6 +243,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
   <section class="pane home in-anim" id="home">
     <div class="fog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="in">
+      <i class="hz hz1" aria-hidden="true"></i><i class="hz hz2" aria-hidden="true"></i>
       <h1><span class="ln"><span class="brandword">Sunshine</span></span><span class="ln"><span>나의 진로 선택을 위한</span></span><span class="ln"><span>학교 프로그램 추천</span></span></h1>
       <p class="f">선샤인에는 프로그램이 수백 개나 있지만, 지금 나에게 필요한 게 무엇인지 고르기는 어려워요.<br>나와 같은 학과, 같은 직무로 취업한 서울권 대학 선배들이 실제로 도움 받은 활동을 바탕으로<br>지금 해야 할 취업 준비와 성신여대 학교 프로그램을 추천해드릴게요.</p>
       <button type="button" class="btn pri lg f" data-a="start">시작하기</button>
