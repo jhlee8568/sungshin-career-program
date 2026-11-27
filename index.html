@@ -14,10 +14,10 @@
    - 화면 3장(홈 · 단계 · 결과)을 세로로 쌓고, 페이지 스크롤 대신 무대(stage)를 위아래로 옮겨 전환
    - 단계 화면은 고정. 긴 목록만 상자 안에서 스크롤
    - 선택할 때는 다시 그리지 않고 그 자리에서 상태만 바꿈 (튀지 않게) */
-:root{--bg:#F3F4FB;--surface:#fff;--soft:#F3F4FB;--ink:#14151A;--ink2:#3d404a;--mut:#80848f;--hair:#E7E8F1;--pri:#6348AE;--pri-ink:#fff;--pri-soft:#EEEAF9;--pri-line:#d9d0f3;--fog:rgba(252,252,255,.96);--fog-base:rgba(243,244,251,.55);--glow:rgba(99,72,174,.35);
+:root{--bg:#F3F4FB;--surface:#fff;--soft:#F3F4FB;--ink:#14151A;--ink2:#3d404a;--mut:#80848f;--hair:#E7E8F1;--pri:#6348AE;--pri-ink:#fff;--pri-soft:#EEEAF9;--pri-line:#d9d0f3;--fog:rgba(252,252,255,.96);
 --gx:clamp(24px,10vw,184px);--t1:12px;--t2:14px;--t3:16px;--t4:20px;--ease:cubic-bezier(.76,0,.24,1);--out:cubic-bezier(.16,1,.3,1);color-scheme:light}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;--fog:rgba(34,35,43,.96);--fog-base:rgba(17,18,22,.55);--glow:rgba(173,156,236,.4);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;--fog:rgba(34,35,43,.96);--fog-base:rgba(17,18,22,.55);--glow:rgba(173,156,236,.4);color-scheme:dark}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;--fog:rgba(34,35,43,.96);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;--fog:rgba(34,35,43,.96);color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink)}
 body{font-family:Inter,"Noto Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all}
@@ -186,33 +186,22 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .ln>span{display:inline-block}
 .in-anim .ln>span{animation:up 1.1s var(--out) both}
 .in-anim .ln+.ln>span{animation-delay:.07s}
-/* 홈: 안개 낀 진로가 Sunshine에서부터 걷히며 선명해지는 장면 */
-@property --clear{syntax:'<percentage>';inherits:false;initial-value:150%}
 .home h1 .ln{overflow:visible}
-.fog{position:absolute;inset:-12%;z-index:3;pointer-events:none;opacity:0;
-  -webkit-mask-image:radial-gradient(circle at 50% 44%,transparent var(--clear),#000 calc(var(--clear) + 28%));
-          mask-image:radial-gradient(circle at 50% 44%,transparent var(--clear),#000 calc(var(--clear) + 28%))}
-.fog::before{content:"";position:absolute;inset:0;background:var(--fog-base)}
-.fog i{position:absolute;width:70vmax;height:50vmax;border-radius:50%;background:radial-gradient(closest-side,var(--fog),transparent);filter:blur(30px)}
-.fog i:nth-child(1){left:-10%;top:5%}
-.fog i:nth-child(2){right:-15%;top:20%}
-.fog i:nth-child(3){left:15%;bottom:-10%}
-.fog i:nth-child(4){right:5%;top:-15%}
-.home.in-anim .fog{animation:fogOn 3.2s linear both,fogClear 2.6s cubic-bezier(.55,0,.25,1) .7s both}
-.home.in-anim .fog i{animation:drift 3.4s ease-in-out both}
-.home.in-anim .fog i:nth-child(even){animation-name:drift2}
-.home.in-anim h1 .ln>span{animation:sharpen 1.6s var(--out) both}
-.home.in-anim h1 .brandword{animation:sharpen 1.5s var(--out) .55s both,shine 2.4s ease-out .55s both}
-.home.in-anim h1 .ln:nth-child(2)>span{animation-delay:1.05s}
-.home.in-anim h1 .ln:nth-child(3)>span{animation-delay:1.3s}
-.home.in-anim .f{animation-delay:2.1s}
-.home.in-anim .meta.f{animation-delay:2.35s}
-@keyframes fogOn{0%,80%{opacity:1}100%{opacity:0}}
-@keyframes fogClear{from{--clear:-30%}to{--clear:110%}}
-@keyframes drift{from{transform:translateX(-6%)}to{transform:translateX(8%)}}
-@keyframes drift2{from{transform:translateX(6%)}to{transform:translateX(-8%)}}
-@keyframes sharpen{from{opacity:.35;filter:blur(14px)}}
-@keyframes shine{0%{text-shadow:0 0 0 transparent}35%{text-shadow:0 0 36px var(--glow)}100%{text-shadow:0 0 0 transparent}}
+.home.in-anim h1 .ln>span{animation:blurIn 1.4s var(--out) both}
+.home.in-anim h1 .ln:nth-child(2)>span{animation-delay:.28s}
+.home.in-anim h1 .ln:nth-child(3)>span{animation-delay:.56s}
+.home.in-anim .f{animation-delay:.9s}
+.home.in-anim .meta.f{animation-delay:1.1s}
+@keyframes blurIn{from{opacity:0;filter:blur(16px);transform:translateY(14px)}}
+/* 홈: 애니메이션 뒤에도 화면 가장자리에 옅은 안개가 남아 있는 정지 상태 */
+.fog{position:absolute;inset:0;z-index:0;pointer-events:none}
+.fog i{position:absolute;border-radius:50%;background:radial-gradient(closest-side,var(--fog),transparent);filter:blur(24px)}
+.fog i:nth-child(1){width:60vmax;height:34vmax;left:-22vmax;bottom:-14vmax}
+.fog i:nth-child(2){width:46vmax;height:26vmax;right:-16vmax;top:-8vmax}
+.fog i:nth-child(3){width:38vmax;height:18vmax;right:2vmax;bottom:-6vmax;opacity:.7}
+.fog i:nth-child(4){width:30vmax;height:14vmax;left:6vmax;top:14vh;opacity:.45}
+.home .in{position:relative;z-index:1}
+.home.in-anim .fog{animation:fade 2s ease-out 1.2s both}
 .in-anim .f{animation:fade .9s var(--out) both;animation-delay:.12s}
 .in-anim .s>*{animation:fade .8s var(--out) both;animation-delay:calc(var(--i,0)*45ms + .18s)}
 .in-anim .bar i,.in-anim .stack i{animation:grow 1.4s var(--out) both;animation-delay:.4s;transform-origin:left}
@@ -478,7 +467,7 @@ document.addEventListener('click',e=>{
   const b=e.target.closest('[data-a]'); if(!b||b.disabled) return;
   const a=b.dataset.a, v=b.dataset.v;
   if(a==='start'){step(true); go(1); return;}
-  if(a==='home'){go(0); play($('#home'),4000); return;}
+  if(a==='home'){go(0); play($('#home'),3400); return;}
   if(a==='dep'){st.dep=v; single(b); setTimeout(()=>{st.scr=2; step(true);},220); return;}
   if(a==='grade'){st.grade=v; single(b); refresh(); return;}
   if(a==='job'){st.job=v; single(b); refresh(); return;}
