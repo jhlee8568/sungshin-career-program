@@ -25,7 +25,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 [hidden]{display:none!important}
 
 /* 머리 */
-.hd{position:fixed;z-index:30;left:0;right:0;top:0;height:88px;display:flex;align-items:center;gap:18px;padding-top:env(safe-area-inset-top,0px);padding-left:max(var(--gx),env(safe-area-inset-left,0px));padding-right:max(var(--gx),env(safe-area-inset-right,0px));pointer-events:none}
+.hd{position:fixed;z-index:30;left:0;right:0;top:0;height:104px;background:linear-gradient(to bottom,var(--bg) 0%,var(--bg) 55%,color-mix(in srgb,var(--bg) 0%,transparent) 100%);display:flex;align-items:center;gap:18px;padding-top:env(safe-area-inset-top,0px);padding-left:max(var(--gx),env(safe-area-inset-left,0px));padding-right:max(var(--gx),env(safe-area-inset-right,0px));pointer-events:none}
 .hd>*{pointer-events:auto}
 .brand{font-family:Inter,sans-serif;font-size:21px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
 .brand i{width:10px;height:10px;border-radius:50%;background:var(--pri)}
@@ -69,12 +69,15 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 /* 단계 */
 .app{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,720px);gap:clamp(40px,6vw,120px);align-items:center;padding:112px var(--gx) 72px}
 .side{display:flex;flex-direction:column;gap:22px;max-width:520px}
-.side .no{font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:var(--mut);letter-spacing:.04em}
+.side .no{display:flex;align-items:center;gap:16px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:var(--mut);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.side .no .track{width:120px;height:2px;background:var(--hair);border-radius:2px;overflow:hidden}
+.side .no .track i{display:block;height:100%;background:var(--pri);transform-origin:left;transition:transform .8s var(--out)}
+.side .chips{margin-top:6px}
 .side .no b{color:var(--pri)}
 .side h2{font-size:clamp(32px,3.2vw,50px);line-height:1.28;letter-spacing:-.035em;margin:0;font-weight:700}
 .side p{margin:0;font-size:16px;color:var(--ink2);line-height:1.75;max-width:30em}
 .box{background:var(--surface);border-radius:28px;height:min(760px,calc(100svh - 184px));display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 0 var(--hair),0 40px 90px -50px rgba(70,52,130,.28)}
-.bh{padding:34px 40px 16px;display:flex;flex-direction:column;gap:12px}
+.bh{padding:34px 40px 14px;display:flex;flex-direction:column;gap:12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;min-height:26px}
 .chips span{font-size:12.5px;font-weight:600;color:var(--pri);background:var(--pri-soft);border-radius:999px;padding:4px 11px}
 .bt{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
@@ -103,10 +106,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .grades .row{font-size:19px;padding:20px 16px}
 
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:4px 12px 4px}
-.cj{position:relative;aspect-ratio:1/1.02;background:var(--soft);border-radius:18px;text-align:left;padding:16px 16px 0;display:flex;flex-direction:column;gap:2px;overflow:hidden;border:1.5px solid transparent;transition:border-color .3s,background .3s}
+.cj{position:relative;aspect-ratio:1/.9;background:var(--soft);border-radius:18px;text-align:left;padding:16px 16px 0;display:flex;flex-direction:column;gap:2px;overflow:hidden;border:1.5px solid transparent;transition:border-color .3s,background .3s}
 .cj b{font-size:14.5px;font-weight:600;line-height:1.35;position:relative;z-index:1;letter-spacing:-.01em}
 .cj small{font-size:12px;color:var(--mut);position:relative;z-index:1;font-variant-numeric:tabular-nums}
-.cj img{position:absolute;right:10px;bottom:6px;height:56%;width:auto;max-width:62%;object-fit:contain;object-position:right bottom;transition:transform .9s var(--out)}
+.cj img{position:absolute;right:10px;bottom:6px;height:54%;width:auto;max-width:62%;object-fit:contain;object-position:right bottom;transition:transform .9s var(--out)}
 .cj:hover img{transform:translateY(-4px) scale(1.04)}
 .cj[aria-pressed="true"]{border-color:var(--pri);background:var(--pri-soft)}
 .cj[aria-pressed="true"] b{color:var(--pri)}
@@ -194,7 +197,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 </style>
 </head>
 <body>
-<header class="hd"><button type="button" class="brand" data-a="home" aria-label="Sunshine 처음 화면"><i></i>Sunshine</button><div class="refs"><a href="algorithm.html">구조도</a><a href="wireframe.html#wireframe">와이어프레임</a></div><div class="prog" id="prog" aria-hidden="true"><span id="pn"></span><span class="track"><i id="pt"></i></span></div></header>
+<header class="hd"><button type="button" class="brand" data-a="home" aria-label="Sunshine 처음 화면"><i></i>Sunshine</button><div class="refs"><a href="algorithm.html">구조도</a><a href="wireframe.html#wireframe">와이어프레임</a></div></header>
 <div class="stage" id="stage" data-p="0">
   <section class="pane home in-anim" id="home">
     <div class="in">
@@ -363,13 +366,12 @@ function step(animate){
     B='<div class="rows s">'+S(WO.map(w=>'<button type="button" class="row" data-a="worry" data-v="'+w[0]+'" aria-pressed="'+(!!st.worries[w[0]])+'"><span>'+esc(w[1])+'</span><span class="ck"></span></button>'))+'</div>';}
   else if(n===5){T='어떤 방식의 프로그램을\n좋아하나요?'; P='여러 개 골라도 돼요. 고른 방식의 프로그램에 점수를 더 줘요.';
     B='<div class="rows s">'+S(FM.map(f=>'<button type="button" class="row" data-a="form" data-v="'+esc(f)+'" aria-pressed="'+(!!st.forms[f])+'"><span>'+esc(f)+'</span><span class="ck"></span></button>'))+'</div>';}
-  $('#side').innerHTML='<div class="no f"><b>STEP 0'+n+'</b> / 05</div><h2>'+L(T)+'</h2><p class="f">'+esc(P)+'</p>';
-  $('#bh').innerHTML='<div class="chips f" id="chips">'+chips(n)+'</div><div class="bt f"><b>'+BOX[n]+'</b><small id="cnt">'+count(n)+'</small></div>';
+  $('#side').innerHTML='<div class="no f"><span><b>STEP 0'+n+'</b> / 05</span><span class="track"><i style="transform:scaleX('+(n/5)+')"></i></span></div><h2>'+L(T)+'</h2><p class="f">'+esc(P)+'</p>'+(chips(n)?'<div class="chips f">'+chips(n)+'</div>':'');
+  $('#bh').innerHTML='<div class="bt f"><b>'+BOX[n]+'</b><small id="cnt">'+count(n)+'</small></div>';
   $('#bb').innerHTML=B; $('#bb').scrollTop=0;
   $('#bf').innerHTML='<button type="button" class="btn txt" data-a="reset">처음부터</button><span class="sp"></span>'+(n>1?'<button type="button" class="btn line" data-a="go" data-v="'+(n-1)+'">이전</button>':'')+
-    '<button type="button" class="btn pri" id="next" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 결과 보기':'다음')+' <span class="ar">→</span></button>';
-  $('#pn').innerHTML='<b>0'+n+'</b> / 05'; $('#pt').style.transform='scaleX('+(n/5)+')';
-  if(animate) play($('#app'));
+    '<button type="button" class="btn pri" id="next" data-a="go" data-v="'+(n===5?'rank':n+1)+'"'+(ready(n)?'':' disabled')+'>'+(n===5?'추천 결과 보기':'다음')+'</button>';
+    if(animate) play($('#app'));
 }
 /* 선택: 그 자리에서 상태만 바꿈 */
 function mark(btn,on){btn.setAttribute('aria-pressed',on?'true':'false');}
@@ -403,7 +405,7 @@ function result(animate){
 }
 
 /* 전환 */
-function go(p){st.p=p; $('#stage').dataset.p=p; $('#prog').classList.toggle('on',p===1);}
+function go(p){st.p=p; $('#stage').dataset.p=p;}
 const RESET={scr:1,q:'',dep:'',job:'',grade:'',worries:{},forms:{},more:{}};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-a]'); if(!b||b.disabled) return;
