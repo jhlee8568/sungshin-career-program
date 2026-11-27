@@ -14,10 +14,10 @@
    - 화면 3장(홈 · 단계 · 결과)을 세로로 쌓고, 페이지 스크롤 대신 무대(stage)를 위아래로 옮겨 전환
    - 단계 화면은 고정. 긴 목록만 상자 안에서 스크롤
    - 선택할 때는 다시 그리지 않고 그 자리에서 상태만 바꿈 (튀지 않게) */
-:root{--bg:#F3F4FB;--surface:#fff;--soft:#F3F4FB;--ink:#14151A;--ink2:#3d404a;--mut:#80848f;--hair:#E7E8F1;--pri:#6348AE;--pri-ink:#fff;--pri-soft:#EEEAF9;--pri-line:#d9d0f3;--fog:rgba(252,252,255,.96);
+:root{--bg:#F3F4FB;--surface:#fff;--soft:#F3F4FB;--ink:#14151A;--ink2:#3d404a;--mut:#80848f;--hair:#E7E8F1;--pri:#6348AE;--pri-ink:#fff;--pri-soft:#EEEAF9;--pri-line:#d9d0f3;
 --gx:clamp(24px,10vw,184px);--t1:12px;--t2:14px;--t3:16px;--t4:20px;--ease:cubic-bezier(.76,0,.24,1);--out:cubic-bezier(.16,1,.3,1);color-scheme:light}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;--fog:rgba(34,35,43,.96);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;--fog:rgba(34,35,43,.96);color-scheme:dark}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111216;--surface:#1a1b21;--soft:#22232b;--ink:#f2f2ef;--ink2:#cfd0d4;--mut:#9a9ea8;--hair:#2c2d36;--pri:#ad9cec;--pri-ink:#15161b;--pri-soft:#29233f;--pri-line:#45395f;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink)}
 body{font-family:Inter,"Noto Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;word-break:keep-all}
@@ -52,8 +52,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .home{display:flex;align-items:center;justify-content:center;text-align:center;padding:88px var(--gx) 64px}
 .home .in{display:flex;flex-direction:column;align-items:center;gap:28px;max-width:900px}
 .eyebrow{color:var(--pri);font-weight:600;font-size:var(--t2);letter-spacing:.01em}
-.home h1{font-size:clamp(38px,4.6vw,68px);line-height:1.22;letter-spacing:-.04em;margin:0;font-weight:700}
-.home h1 .brandword{font-family:Inter,sans-serif;color:var(--pri);letter-spacing:-.03em}
+.home h1,.home .gh{font-size:clamp(38px,4.6vw,68px);line-height:1.22;letter-spacing:-.04em;margin:0;font-weight:700}
+.home h1 .brandword,.home .gh .brandword{font-family:Inter,sans-serif;color:var(--pri);letter-spacing:-.03em}
 .home p{margin:0;font-size:var(--t3);line-height:1.6;color:var(--ink2)}
 .home .meta{position:absolute;left:0;right:0;bottom:calc(40px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;gap:32px;font-size:var(--t1);color:var(--mut);opacity:.8}
 .home .meta b{font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums}
@@ -187,29 +187,22 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 .in-anim .ln>span{animation:up 1.1s var(--out) both}
 .in-anim .ln+.ln>span{animation-delay:.07s}
 .home h1 .ln{overflow:visible}
-.home.in-anim h1 .ln>span{animation:blurIn 1.4s var(--out) both}
-.home.in-anim h1 .ln:nth-child(2)>span{animation-delay:.28s}
-.home.in-anim h1 .ln:nth-child(3)>span{animation-delay:.56s}
-.home.in-anim .f{animation-delay:.9s}
-.home.in-anim .meta.f{animation-delay:1.1s}
-@keyframes blurIn{from{opacity:0;filter:blur(16px);transform:translateY(14px)}}
-/* 홈: 애니메이션 뒤에도 화면 가장자리에 옅은 안개가 남아 있는 정지 상태 */
-.fog{position:absolute;inset:0;z-index:0;pointer-events:none}
-.fog i{position:absolute;border-radius:50%;background:radial-gradient(closest-side,var(--fog),transparent);filter:blur(24px)}
-.fog i:nth-child(1){width:60vmax;height:34vmax;left:-22vmax;bottom:-14vmax}
-.fog i:nth-child(2){width:46vmax;height:26vmax;right:-16vmax;top:-8vmax}
-.fog i:nth-child(3){width:38vmax;height:18vmax;right:2vmax;bottom:-6vmax;opacity:.7}
-.fog i:nth-child(4){width:30vmax;height:14vmax;left:6vmax;top:14vh;opacity:.45}
-.home .in{position:relative;z-index:1}
-.home.in-anim .fog{animation:fade 2s ease-out 1.2s both}
-/* 글자 위에 걸친 옅은 안개: 그 부분만 살짝 번져 보임 */
-.hz{position:absolute;z-index:2;pointer-events:none;border-radius:50%;
-  -webkit-backdrop-filter:blur(3.5px);backdrop-filter:blur(3.5px);background:radial-gradient(closest-side,var(--fog),transparent);
-  -webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent 92%);mask-image:radial-gradient(closest-side,#000 25%,transparent 92%)}
-.hz1{width:62%;height:46%;right:-14%;top:14%;opacity:.95}
-.hz2{width:34%;height:30%;left:-16%;top:30%;opacity:.7}
-.home.in-anim .hz{animation:hzIn 2.2s ease-out 1.3s both}
-@keyframes hzIn{from{opacity:0}}
+/* 홈 타이틀: 흐릿한 상태에서 3줄이 이어서 떠오르고, 잔상(고스트)이 남은 채로 끝남 */
+.ttl{position:relative;z-index:1}
+.ttl h1{position:relative;z-index:2}
+.gh{position:absolute;inset:0;pointer-events:none;z-index:0;user-select:none}
+.gh .ln{overflow:visible}.home.in-anim .gh .ln>span{animation:none}
+.gh.g1{transform:scale(1.32) translateX(-3%);filter:blur(10px);opacity:.2}
+.gh.g2{transform:translate(7%,9%) scale(.9);filter:blur(3px);opacity:.14}
+.home .in>p,.home .in>.btn{position:relative;z-index:2}
+.home.in-anim .ttl h1 .ln>span{animation:emerge 1.9s cubic-bezier(.22,1,.36,1) both}
+.home.in-anim .ttl h1 .ln:nth-child(2)>span{animation-delay:.12s}
+.home.in-anim .ttl h1 .ln:nth-child(3)>span{animation-delay:.24s}
+.home.in-anim .gh{animation:ghost 2.4s cubic-bezier(.22,1,.36,1) .35s both;will-change:transform,filter,opacity}
+.home.in-anim .f{animation-delay:1.1s}
+.home.in-anim .meta.f{animation-delay:1.3s}
+@keyframes emerge{0%{opacity:0;filter:blur(18px);transform:translateY(.25em)}60%{opacity:1}}
+@keyframes ghost{from{opacity:0;transform:none;filter:blur(18px)}}
 .in-anim .f{animation:fade .9s var(--out) both;animation-delay:.12s}
 .in-anim .s>*{animation:fade .8s var(--out) both;animation-delay:calc(var(--i,0)*45ms + .18s)}
 .in-anim .bar i,.in-anim .stack i{animation:grow 1.4s var(--out) both;animation-delay:.4s;transform-origin:left}
@@ -241,10 +234,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 <header class="hd"><button type="button" class="brand" data-a="home" aria-label="Sunshine 처음 화면">Sunshine</button><div class="refs"><a href="algorithm.html">구조도</a></div><div class="hact" id="hact" hidden><button type="button" class="btn line sm" data-a="go" data-v="5">다시 선택하기</button><button type="button" class="btn pri sm" data-a="reset">처음부터</button></div></header>
 <div class="stage" id="stage" data-p="0">
   <section class="pane home in-anim" id="home">
-    <div class="fog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="in">
-      <i class="hz hz1" aria-hidden="true"></i><i class="hz hz2" aria-hidden="true"></i>
-      <h1><span class="ln"><span class="brandword">Sunshine</span></span><span class="ln"><span>나의 진로 선택을 위한</span></span><span class="ln"><span>학교 프로그램 추천</span></span></h1>
+      <div class="ttl"><div class="gh g1" aria-hidden="true"><span class="ln"><span class="brandword">Sunshine</span></span><span class="ln"><span>나의 진로 선택을 위한</span></span><span class="ln"><span>학교 프로그램 추천</span></span></div><div class="gh g2" aria-hidden="true"><span class="ln"><span class="brandword">Sunshine</span></span><span class="ln"><span>나의 진로 선택을 위한</span></span><span class="ln"><span>학교 프로그램 추천</span></span></div><h1><span class="ln"><span class="brandword">Sunshine</span></span><span class="ln"><span>나의 진로 선택을 위한</span></span><span class="ln"><span>학교 프로그램 추천</span></span></h1></div>
       <p class="f">선샤인에는 프로그램이 수백 개나 있지만, 지금 나에게 필요한 게 무엇인지 고르기는 어려워요.<br>나와 같은 학과, 같은 직무로 취업한 서울권 대학 선배들이 실제로 도움 받은 활동을 바탕으로<br>지금 해야 할 취업 준비와 성신여대 학교 프로그램을 추천해드릴게요.</p>
       <button type="button" class="btn pri lg f" data-a="start">시작하기</button>
     </div>
@@ -476,7 +467,7 @@ document.addEventListener('click',e=>{
   const b=e.target.closest('[data-a]'); if(!b||b.disabled) return;
   const a=b.dataset.a, v=b.dataset.v;
   if(a==='start'){step(true); go(1); return;}
-  if(a==='home'){go(0); play($('#home'),3400); return;}
+  if(a==='home'){go(0); play($('#home'),3000); return;}
   if(a==='dep'){st.dep=v; single(b); setTimeout(()=>{st.scr=2; step(true);},220); return;}
   if(a==='grade'){st.grade=v; single(b); refresh(); return;}
   if(a==='job'){st.job=v; single(b); refresh(); return;}
