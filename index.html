@@ -224,7 +224,7 @@ svg .m{fill:var(--mut)}
     <div class="hd"><b>구조도 (참고용)</b><button type="button" class="btn" id="refclose">닫기</button></div>
     <figure>
       <div class="figbox">
-      <svg viewBox="0 0 920 770" role="img" aria-label="학과와 희망 직무로 GOMS에서 비슷한 선배를 찾고, 지금 고민을 반영해 활동 순위를 계산한 뒤, 학년, 학과, 프로그램 참여 방식에 맞는 선샤인 프로그램을 붙여 결과 화면으로 보여 준다">
+      <svg viewBox="0 0 920 770" role="img" aria-label="학과와 희망 직무로 GOMS에서 비슷한 선배를 찾고, 진로 고민을 반영해 활동 순위를 계산한 뒤, 학년, 학과, 프로그램 참여 방식에 맞는 선샤인 프로그램을 붙여 결과 화면으로 보여 준다">
         <defs>
           <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 1L10 5L0 9z" class="ah"/></marker>
           <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 1L10 5L0 9z" class="noah"/></marker>
@@ -233,7 +233,7 @@ svg .m{fill:var(--mut)}
 
         <rect x="20" y="40" width="190" height="56" class="bx"/><text x="32" y="62" class="s m">학과</text><text x="32" y="83" class="t">서비스디자인공학과</text>
         <rect x="20" y="112" width="190" height="56" class="bx"/><text x="32" y="134" class="s m">희망 직무</text><text x="32" y="155" class="t">디자이너</text>
-        <rect x="20" y="268" width="190" height="56" class="bx"/><text x="32" y="290" class="s m">지금 고민 (예상 태그)</text><text x="32" y="311" class="t">인턴 경험이 없어요</text>
+        <rect x="20" y="268" width="190" height="56" class="bx"/><text x="32" y="290" class="s m">진로 고민</text><text x="32" y="311" class="t">인턴 경험이 없어요</text>
         <rect x="20" y="396" width="190" height="56" class="bx"/><text x="32" y="418" class="s m">학년</text><text x="32" y="439" class="t">3학년</text>
         <rect x="20" y="460" width="190" height="56" class="bx"/><text x="32" y="482" class="s m">프로그램 참여 방식</text><text x="32" y="503" class="t">멘토링</text>
         <path d="M210 68H260V140" class="ln"/>
@@ -286,7 +286,7 @@ svg .m{fill:var(--mut)}
         <g id="figrows"></g>
       </svg>
       </div>
-      <figcaption><b>그림 1.</b> 취업 준비 활동 추천의 구조. 입력 5개 중 학과·희망 직무는 비슷한 선배 찾기에, 지금 고민은 활동 순위에, 학년·프로그램 참여 방식은 프로그램 선택에 사용. 프로그램 참여 방식은 선샤인 목록의 프로그램 형태 값. 고민 태그는 예상 값(분석 결과로 교체 예정). 결과 화면의 숫자는 GOMS 2016~2019 값, 프로그램명은 선샤인 목록의 이름.</figcaption>
+      <figcaption><b>그림 1.</b> 취업 준비 활동 추천의 구조. 입력 5개 중 학과·희망 직무는 비슷한 선배 찾기에, 진로 고민은 활동 순위에, 학년·프로그램 참여 방식은 프로그램 선택에 사용. 프로그램 참여 방식은 선샤인 목록의 프로그램 형태 값. 고민 태그는 예상 값(분석 결과로 교체 예정). 결과 화면의 숫자는 GOMS 2016~2019 값, 프로그램명은 선샤인 목록의 이름.</figcaption>
     </figure>
   </div>
 </div>
@@ -305,7 +305,7 @@ const DISP={'기업체 직무적성검사 준비':'기업체 직무적성검사(
 const lab=t=>DISP[t]||t;
 /* 관심 키워드와 고민 태그는 예상 값(임시). 키워드는 선샤인 프로그램 분석, 고민 태그는 에브리타임 분석 결과로 교체 예정 */
 const KW=[["AI·데이터","AI|데이터|Analytics|SQL|Pytorch|딥러닝"],["코딩·개발","코딩|JAVA|C\\+\\+|프로그래밍|개발자|SQL|Pytorch"],["공기업·공공기관","공기업|공단|공사|NCS|발전|한국전력|한전|수력원자력|심사평가원|근로복지"],["대기업","대기업|삼성|LG|SK|현대|롯데|CJ|포스코|GS|KT|두산|효성|이랜드|GSAT"],["금융·은행","은행|금융|농협|핀테크|경제"],["외국계·글로벌","외국계|글로벌|Global|국제|Microsoft|Google|English|통번역|외국인"],["마케팅·콘텐츠","마케팅|콘텐츠|브랜드|Brand|크리에이터|광고"],["디자인·포트폴리오","포트폴리오|디자인|포토샵|프리미어|ARTDAYS|큐레이터|노션"],["교직·교육","교사|교직|교육학과|유아교육|사회교육|사범"],["간호·의료·바이오","간호|의료|바이오|PRN|메디컬"],["자격증","자격|SQLD|AdSP|Certificate|기사 "],["현장실습·기업탐방","현장실습|인턴|기업탐방|사전직무"],["선배·현직자 멘토링","멘토|선배|졸업생|현직자|의 밤"],["면접","면접"],["자기소개서","자소서|자기소개서|이력서"],["진로 탐색·심리검사","검사|MBTI|TCI|진로탐색|진로 탐색|진로탐구|직무의 탐색|직무안내|직무분석"]].map(k=>[k[0],new RegExp(k[1])]);
-const WO=[["뭘 하고 싶은지 모르겠어요",["직업심리검사","진로 상담"]],["전공을 살릴지 고민이에요",["진로 상담","진로·취업 교과목"]],["뭐부터 해야 할지 모르겠어요",["진로 상담","진로·취업 교과목"]],["스펙이 부족한 것 같아요",["자격증 준비","대외활동","공모전 준비"]],["실무 능력이 부족해요",["직업 교육·훈련","직장체험(인턴 포함)"]],["인턴 경험이 없어요",["직장체험(인턴 포함)"]],["영어 점수가 없어요",["영어 등 외국어 공부"]],["자소서가 막막해요",["취업 관련 서류 작성 교육"]],["면접이 무서워요",["(모의)면접 준비"]],["대기업 인적성이 걱정돼요",["기업체 직무적성검사 준비"]],["공기업 준비를 어떻게 시작할지 모르겠어요",["NCS시험 준비"]],["취업 정보가 없어요",["기업 채용설명회","교내 취업박람회"]],["혼자 준비하기 힘들어요",["취업캠프·스터디","진로 상담"]]];
+const WO=[["뭘 하고 싶은지 아직 모르겠어요", ["직업심리검사", "진로 상담"]], ["전공이나 복수전공을 먼저 정해야 해요", ["진로·취업 교과목", "진로 상담"]], ["선배들은 진로를 어떻게 정했는지 궁금해요", ["대외활동", "취업캠프·스터디"]], ["지금 고른 진로가 나한테 맞는지 확인하고 싶어요", ["직장체험(인턴 포함)", "대외활동"]], ["진로를 생각하면 불안하고 의욕이 없어요", ["진로 상담"]], ["이제 본격적으로 취업 준비를 하고 싶어요", ["자격증 준비", "취업 관련 서류 작성 교육", "(모의)면접 준비", "기업체 직무적성검사 준비"]]];
 const K=20, W_RATE=2, W_WORRY=0.3, W_KEY=0, W_ROAD=0.2;  /* 관심 키워드 단계 삭제(2026-11-20): 가점 없음 */
 const kwOf=(p,q)=>KW.filter(k=>q.keys&&q.keys[k[0]]&&k[1].test(p.n)&&!(k[0]==='진로 탐색·심리검사'&&/직무적성검사/.test(p.n))).map(k=>k[0]);
 
@@ -378,7 +378,7 @@ $('#refclose').addEventListener('click',()=>showRef(false));
 addEventListener('keydown',e=>{ if(e.key!=='Escape') return; showRef(false); if(st.depopen){st.depopen=false; render();} });
 
 /* 와이어프레임 화면: 1 학과 → 2 희망 직무 → 3 학년 → 4 한 활동 → rank 순위 → detail 활동 상세, fav 관심 목록 */
-const STEPS=['학과','학년','희망 직무','지금 고민','프로그램 참여 방식','추천 결과'];
+const STEPS=['학과','학년','희망 직무','진로 고민','프로그램 참여 방식','추천 결과'];
 const st={scr:0,back:'rank',q:'',ini:'',college:'',dep:'',job:'',sub:'',grade:'',keys:{},worries:{},forms:{},fav:{},more:{},detail:null,all:false,open:false};
 const CHO='ㄱㄱㄴㄷㄷㄹㅁㅂㅂㅅㅅㅇㅈㅈㅊㅋㅌㅍㅎ', INI=['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ','A-Z'];
 function cho(s){return [...s].map(ch=>{const c=ch.charCodeAt(0);return c>=0xAC00&&c<=0xD7A3?CHO[Math.floor((c-0xAC00)/588)]:ch;}).join('');}
@@ -401,7 +401,7 @@ function orbs(){
 function stepVal(i){return [st.dep,st.grade,st.job==='?'?'아직 모름':(st.sub||st.job),Object.keys(st.worries).length?Object.keys(st.worries).length+'개 선택':'',Object.keys(st.forms).length?Object.keys(st.forms).length+'개 선택':'',''][i]||'';}
 function stepNo(){return typeof st.scr==='number'?st.scr:6;}
 function ready(n){return n===1?!!st.dep:n===2?!!st.grade:n===3?!!st.job:true;}
-function condText(){return st.dep+' · '+(st.job==='?'?'희망 직무 아직 모름':(st.sub||st.job))+' · '+st.grade+' · 고민 '+Object.keys(st.worries).length+'개 · 프로그램 참여 방식 '+Object.keys(st.forms).length+'개';}
+function condText(){return st.dep+' · '+(st.job==='?'?'희망 직무 아직 모름':(st.sub||st.job))+' · '+st.grade+' · 진로 고민 '+Object.keys(st.worries).length+'개 · 프로그램 참여 방식 '+Object.keys(st.forms).length+'개';}
 function calcBox(a){return '<details><summary>추천 점수 계산 보기 ('+a.score.toFixed(2)+')</summary><div class="calc">도움 점수 '+a.h.toFixed(2)+' (인원이 적으면 전체 평균 쪽으로 보정)<br>참여율 차이 '+(W_RATE*(a.r-a.rAll)>=0?'+':'')+(W_RATE*(a.r-a.rAll)).toFixed(2)+' (비슷한 선배 '+pct(a.r)+' − 전체 '+pct(a.rAll)+', × '+W_RATE+')<br>내 고민 반영 '+(a.worry.length?'+'+W_WORRY.toFixed(2)+' ('+esc(a.worry.join(', '))+')':'+0.00')+'<br>학년 로드맵 '+(a.road?'+'+W_ROAD.toFixed(2):'+0.00')+'</div></details>';}
 function progRows(t){
   const P=programs(t,st);
@@ -443,9 +443,8 @@ function render(){
       '<div class="grid c5">'+['1학년','2학년','3학년','4학년','졸업생'].map(g=>'<button type="button" class="tile big" data-a="grade" data-v="'+g+'" aria-pressed="'+(st.grade===g)+'">'+g+'</button>').join('')+'</div>';
     nav=navStd(2);
   } else if(st.scr===4){
-    T='지금 어떤 고민이 있나요?'; S='여러 개 골라도 돼요. 고민과 관련된 활동을 순위에서 올려 줘요. 없으면 바로 넘어가도 돼요.'; h=
-      '<div class="chips">'+WO.map(w=>'<button type="button" class="chip" data-a="worry" data-v="'+esc(w[0])+'" aria-pressed="'+(!!st.worries[w[0]])+'">'+esc(w[0])+'</button>').join('')+'</div>'+
-      '<div class="hint">고민 태그는 예상 값이에요. 에브리타임 글 분석이 끝나면 바뀌어요.</div>';
+    T='지금 어떤 고민이 있나요?'; S='여러 개 골라도 돼요. 고른 고민과 관련된 활동을 순위에서 올려 줘요. 없으면 바로 넘어가도 돼요.'; h=
+      '<div class="chips">'+WO.map(w=>'<button type="button" class="chip" data-a="worry" data-v="'+esc(w[0])+'" aria-pressed="'+(!!st.worries[w[0]])+'">'+esc(w[0])+'</button>').join('')+'</div>';
     nav=navStd(4);
   } else if(st.scr===5){
     T='어떤 방식으로 참여하고 싶나요?'; S='여러 개 골라도 돼요. 고른 방식의 프로그램을 먼저 보여 줘요. 없으면 바로 넘어가도 돼요.'; h=
