@@ -436,12 +436,17 @@ function tr(k,v){return '<div class="tr"><span>'+k+'</span><span>'+v+'</span></d
 function tipRow(x,R,a,b,c){
   const ws=R.codes.map(cd=>WO.find(w=>w[0]===cd)[1]);
   const purp=Object.keys(x.p.tg).filter(k=>x.p.tg[k]>0).sort((p,q)=>x.p.tg[q]-x.p.tg[p]).map(k=>PN[k]);
+  const p1=v=>(v*100).toFixed(1)+'%';
   const t1=(ws.length?'내가 고른 고민 '+ws.length+'개와 이 프로그램의 목적이 얼마나 맞는지예요.':'고민을 고르지 않아 고민 점수는 0점이에요.')+
-    '<div style="margin-top:8px">'+tr('프로그램 목적',esc(purp.join(', ')||'없음'))+tr('맞는 정도',pctS(x.w))+'</div><div class="eq">60점 × '+pctS(x.w)+' = '+a.toFixed(1)+'점</div>';
+    '<div style="margin-top:8px">'+tr('프로그램 목적',esc(purp.join(', ')||'없음'))+tr('겹친 정도',x.raw.toFixed(2)+' (최대 1.5)')+tr('맞는 정도',x.raw.toFixed(2)+' ÷ 1.5 = '+p1(x.w))+'</div><div class="eq">60점 × '+p1(x.w)+' = '+a.toFixed(1)+'점</div>';
   const t2=(!R.forms.length?'참여 방식을 고르지 않아 0점이에요.':x.m?'내가 고른 참여 방식과 같아서 20점이에요.':'내가 고른 참여 방식과 달라서 0점이에요.')+
     '<div style="margin-top:8px">'+(R.forms.length?tr('내가 고른 방식',esc(R.forms.join(', '))):'')+tr('이 프로그램',esc(x.p.m.join(', ')||'정보 없음'))+'</div><div class="eq">'+(x.m?'20점':'0점')+'</div>';
-  const t3='비슷한 선배 '+R.sim.n.toLocaleString()+'명이 이 활동을 얼마나 도움 됐다고 답했는지예요.'+
-    '<div style="margin-top:8px">'+tr('기준',esc(x.sr.src))+tr('도움 됐다는 비율',pctS(x.sr.v))+tr('가장 높은 활동',esc(R.best)+' '+pctS(R.maxRate))+'</div><div class="eq">20점 × '+pctS(x.s)+' = '+c.toFixed(1)+'점</div>';
+  const src=x.sr.src, same=/ 활동$/.test(src);
+  const own=same?tr('같은 활동',esc(src.replace(/ 활동$/,''))+' '+p1(x.sr.v)):
+    src==='같은 목적 활동 평균'?tr('같은 활동','설문에 없음')+tr('대신 사용','같은 목적 활동들의 평균 '+p1(x.sr.v)):
+    tr('같은 활동','설문에 없음')+tr('대신 사용','목적 6개 평균의 가운데 값 '+p1(x.sr.v));
+  const t3='비슷한 선배 '+R.sim.n.toLocaleString()+'명이 4~5점(5점 만점)으로 도움 됐다고 답한 비율이에요. 가장 도움 된 활동을 기준으로 비교해요.'+
+    '<div style="margin-top:8px">'+own+tr('가장 도움 된 활동',esc(R.best)+' '+p1(R.maxRate))+tr('기준 대비',p1(x.sr.v)+' ÷ '+p1(R.maxRate)+' = '+p1(x.s))+'</div><div class="eq">20점 × '+p1(x.s)+' = '+c.toFixed(1)+'점</div>';
   const t4=tr('고민',a.toFixed(1)+' / 60')+tr('참여 방식',b+' / 20')+tr('선배',c.toFixed(1)+' / 20')+'<div class="eq">합계 '+x.score.toFixed(1)+' / 100점</div>';
   const L=(cls,k,v,t)=>'<span class="lg '+cls+'" tabindex="0">'+k+' <b>'+v+'</b><span class="tip" role="tooltip">'+t+'</span></span>';
   return L('a','고민',a.toFixed(1),t1)+L('b','방식',b,t2)+L('c','선배',c.toFixed(1),t3)+L('t','합계',x.score.toFixed(1),t4);
