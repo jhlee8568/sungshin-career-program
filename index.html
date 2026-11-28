@@ -213,11 +213,13 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 
 @media (max-width:1100px){
   :root{--gx:clamp(20px,6vw,56px)}
-  .app{grid-template-columns:minmax(0,1fr);gap:22px;align-content:start;align-items:start;padding-top:96px;overflow-y:auto}
-  .side{margin-top:0;max-width:none}
-  .pane.app{overflow-y:auto}
-  .box{height:auto;min-height:auto;overflow:visible}
-  .bb{overflow:visible}
+  .app{display:flex;flex-direction:column;align-items:stretch;gap:20px;padding-top:92px;padding-bottom:20px;overflow-y:auto}
+  .side{flex:none;margin-top:0;max-width:none;gap:12px}
+  .side h2{font-size:clamp(24px,4.4vw,34px);line-height:1.25}
+  .side p{font-size:var(--t2);line-height:1.55;max-width:none}
+  .side .chips{margin-top:2px}
+  .box{flex:1 0 auto;height:0;min-height:300px;border-radius:32px}
+  .bf .btn{white-space:nowrap}
   .top3{grid-template-columns:minmax(0,1fr)}
   .ac{grid-template-columns:40px minmax(0,1fr);gap:14px 18px}.ac .ps{grid-column:2}
   .rtop{grid-template-columns:minmax(0,1fr)}
