@@ -213,9 +213,10 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 
 @media (max-width:1100px){
   :root{--gx:clamp(20px,6vw,56px)}
-  .app{grid-template-columns:minmax(0,1fr);gap:22px;align-content:start;padding-top:96px;overflow-y:auto}
+  .app{grid-template-columns:minmax(0,1fr);gap:22px;align-content:start;align-items:start;padding-top:96px;overflow-y:auto}
+  .side{margin-top:0;max-width:none}
   .pane.app{overflow-y:auto}
-  .box{height:auto;min-height:0}
+  .box{height:auto;min-height:auto;overflow:visible}
   .bb{overflow:visible}
   .top3{grid-template-columns:minmax(0,1fr)}
   .ac{grid-template-columns:40px minmax(0,1fr);gap:14px 18px}.ac .ps{grid-column:2}
